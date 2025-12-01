@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Server 10G Upgrade Guide - Interactive</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #1f2937;
+            --gray: #6b7280;
+            --light-gray: #f3f4f6;
+            --border: #e5e7eb;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: #f9fafb;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header h1 {
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .cost-summary {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            margin-top: 0.5rem;
+            font-weight: 600;
+        }
+
+        .container {
+            display: flex;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: white;
+            border-right: 1px solid var(--border);
+            position: sticky;
+            top: 120px;
+            height: calc(100vh - 120px);
+            overflow-y: auto;
+            padding: 1.5rem;
+        }
+
+        .nav-item {
+            padding: 0.75rem 1rem;
+            margin: 0.25rem 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.9rem;
+        }
+
+        .nav-item:hover {
+            background: var(--light-gray);
+        }
+
+        .nav-item.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .nav-item .phase-number {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .nav-item.active .phase-number {
+            background: white;
+            color: var(--primary);
+        }
+
+        .nav-item.completed {
+            color: var(--success);
+        }
+
+        .nav-item.completed .phase-number {
+            background: var(--success);
+            color: white;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            max-width: 1000px;
+        }
+
+        .phase {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            display: none;
+        }
+
+        .phase.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .phase-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .phase-badge {
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .phase-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .phase-meta {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: var(--light-gray);
+            border-radius: 8px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .meta-icon {
+            font-size: 1.2rem;
+        }
+
+        .section {
+            margin: 2rem 0;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .diagram-container {
+            background: #fafafa;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+        }
+
+        .code-block {
+            position: relative;
+            background: #1e293b;
+            color: #e2e8f0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .code-language {
+            color: #94a3b8;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .copy-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .copy-btn.copied {
+            background: var(--success);
+        }
+
+        .checklist {
+            list-style: none;
+        }
+
+        .checklist-item {
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .checklist-item:hover {
+            border-color: var(--primary);
+            background: #fafafa;
+        }
+
+        .checklist-item.checked {
+            background: #f0fdf4;
+            border-color: var(--success);
+        }
+
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--gray);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .checklist-item.checked .checkbox {
+            background: var(--success);
+            border-color: var(--success);
+        }
+
+        .checkbox::after {
+            content: '✓';
+            color: white;
+            display: none;
+            font-weight: bold;
+        }
+
+        .checklist-item.checked .checkbox::after {
+            display: block;
+        }
+
+        .info-box {
+            background: #eff6ff;
+            border-left: 4px solid var(--primary);
+            padding: 1rem 1.5rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        .warning-box {
+            background: #fffbeb;
+            border-left: 4px solid var(--warning);
+            padding: 1rem 1.5rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        .success-box {
+            background: #f0fdf4;
+            border-left: 4px solid var(--success);
+            padding: 1rem 1.5rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        .danger-box {
+            background: #fef2f2;
+            border-left: 4px solid var(--danger);
+            padding: 1rem 1.5rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--border);
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background: var(--light-gray);
+            color: var(--dark);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--light-gray);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--success));
+            transition: width 0.3s ease;
+        }
+
+        .config-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        .config-table th,
+        .config-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid var(--border);
+        }
+
+        .config-table th {
+            background: var(--light-gray);
+            font-weight: 600;
+        }
+
+        .config-table tr:hover {
+            background: #fafafa;
+        }
+
+        .tab-container {
+            margin: 1.5rem 0;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            border-bottom: 2px solid var(--border);
+            margin-bottom: 1rem;
+        }
+
+        .tab {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--gray);
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.2s;
+        }
+
+        .tab:hover {
+            color: var(--primary);
+        }
+
+        .tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .highlight {
+            background: #fef08a;
+            padding: 0.1rem 0.3rem;
+            border-radius: 3px;
+        }
+
+        .command {
+            background: #1e293b;
+            color: #10b981;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-right: 0.5rem;
+        }
+
+        .topology-svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        @media print {
+            .sidebar, .nav-buttons, .copy-btn {
+                display: none;
+            }
+            .main-content {
+                max-width: 100%;
+            }
+            .phase {
+                display: block !important;
+                page-break-after: always;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                display: none;
+            }
+            .container {
+                flex-direction: column;
+            }
+            .main-content {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🚀 Home Server 10G Upgrade Guide</h1>
+        <p>TerraMaster F6-424 Max + Dell R730xd → Professional 10G Infrastructure</p>
+        <span class="cost-summary">Net Cost: $2,459 CAD | 64GB RAM (Auto-Tuned) | 36TB ZFS | 20 Gbps LACP</span>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressBar" style="width: 0%"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <aside class="sidebar">
+            <h3 style="margin-bottom: 1rem; color: var(--dark);">Navigation</h3>
+            <div class="nav-item active" data-phase="overview">
+                <span class="phase-number">📋</span>
+                <span>Overview</span>
+            </div>
+            <div class="nav-item" data-phase="phase0">
+                <span class="phase-number">0</span>
+                <span>Preparation</span>
+            </div>
+            <div class="nav-item" data-phase="phase1">
+                <span class="phase-number">1</span>
+                <span>Hardware Install</span>
+            </div>
+            <div class="nav-item" data-phase="phase2">
+                <span class="phase-number">2</span>
+                <span>TrueNAS Setup</span>
+            </div>
+            <div class="nav-item" data-phase="phase3">
+                <span class="phase-number">3</span>
+                <span>ZFS Storage</span>
+            </div>
+            <div class="nav-item" data-phase="phase4">
+                <span class="phase-number">4</span>
+                <span>10G Network</span>
+            </div>
+            <div class="nav-item" data-phase="phase5">
+                <span class="phase-number">5</span>
+                <span>VLAN Config</span>
+            </div>
+            <div class="nav-item" data-phase="phase6">
+                <span class="phase-number">6</span>
+                <span>Data Migration</span>
+            </div>
+            <div class="nav-item" data-phase="phase7">
+                <span class="phase-number">7</span>
+                <span>Performance Test</span>
+            </div>
+            <div class="nav-item" data-phase="phase8">
+                <span class="phase-number">8</span>
+                <span>Monitoring</span>
+            </div>
+            <div class="nav-item" data-phase="diagrams">
+                <span class="phase-number">📊</span>
+                <span>Network Diagrams</span>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <section class="phase active" id="overview">
+                <div class="phase-header">
+                    <div class="phase-badge">Overview</div>
+                    <h2 class="phase-title">Project Overview</h2>
+                </div>
+
+                <div class="success-box">
+                    <h3 style="margin-bottom: 0.5rem;">🎉 What You're Building</h3>
+                    <p>A professional-grade 10G homelab that rivals $8,000+ commercial solutions for just <strong>$2,459</strong>.</p>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">📊 Key Improvements</h3>
+                    <p>TerraMaster F6-424 Max with 64GB RAM, 36TB ZFS Storage, 10G networking, and comprehensive upgrade plan covering all 9 phases from preparation to monitoring.</p>
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="btn btn-secondary" disabled>← Previous</button>
+                    <button class="btn btn-primary" onclick="goToPhase('phase0')">Start Setup →</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        function goToPhase(phaseId) {
+            document.querySelectorAll('.phase').forEach(phase => {
+                phase.classList.remove('active');
+            });
+
+            if (document.getElementById(phaseId)) {
+                document.getElementById(phaseId).classList.add('active');
+            }
+
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            const navItem = document.querySelector(`[data-phase="${phaseId}"]`);
+            if (navItem) {
+                navItem.classList.add('active');
+            }
+
+            updateProgress();
+            window.scrollTo(0, 0);
+            localStorage.setItem('currentPhase', phaseId);
+        }
+
+        function updateProgress() {
+            const phases = ['overview', 'phase0', 'phase1', 'phase2', 'phase3', 'phase4', 'phase5', 'phase6', 'phase7', 'phase8'];
+            const currentPhase = document.querySelector('.phase.active')?.id || 'overview';
+            const currentIndex = phases.indexOf(currentPhase);
+            const progress = (currentIndex / (phases.length - 1)) * 100;
+
+            const progressBar = document.getElementById('progressBar');
+            if (progressBar) {
+                progressBar.style.width = progress + '%';
+            }
+        }
+
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const phase = this.getAttribute('data-phase');
+                goToPhase(phase);
+            });
+        });
+
+        function toggleCheck(element) {
+            element.classList.toggle('checked');
+
+            const phase = element.closest('.phase');
+            if (phase) {
+                const allItems = phase.querySelectorAll('.checklist-item');
+                const checkedItems = phase.querySelectorAll('.checklist-item.checked');
+
+                if (allItems.length === checkedItems.length && allItems.length > 0) {
+                    const phaseId = phase.id;
+                    const navItem = document.querySelector(`[data-phase="${phaseId}"]`);
+                    if (navItem) {
+                        navItem.classList.add('completed');
+                    }
+                }
+            }
+
+            saveChecklistState();
+        }
+
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-block');
+            const code = codeBlock.querySelector('pre').textContent;
+
+            navigator.clipboard.writeText(code).then(() => {
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        function switchTab(event, tabId) {
+            const tabContainer = event.target.closest('.tab-container');
+
+            tabContainer.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            tabContainer.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            event.target.classList.add('active');
+            const tabContent = document.getElementById(tabId);
+            if (tabContent) {
+                tabContent.classList.add('active');
+            }
+        }
+
+        function saveChecklistState() {
+            const checkedItems = [];
+            document.querySelectorAll('.checklist-item.checked').forEach(item => {
+                const phase = item.closest('.phase');
+                if (phase) {
+                    const phaseId = phase.id;
+                    const text = item.textContent.trim();
+                    checkedItems.push({ phase: phaseId, text: text });
+                }
+            });
+
+            localStorage.setItem('checklistState', JSON.stringify(checkedItems));
+        }
+
+        function loadChecklistState() {
+            const saved = localStorage.getItem('checklistState');
+            if (saved) {
+                const checkedItems = JSON.parse(saved);
+
+                checkedItems.forEach(saved => {
+                    const phase = document.getElementById(saved.phase);
+                    if (phase) {
+                        const items = phase.querySelectorAll('.checklist-item');
+                        items.forEach(item => {
+                            if (item.textContent.trim() === saved.text) {
+                                item.classList.add('checked');
+                            }
+                        });
+                    }
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedPhase = localStorage.getItem('currentPhase');
+            if (savedPhase) {
+                goToPhase(savedPhase);
+            }
+
+            loadChecklistState();
+            updateProgress();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                const nextBtn = document.querySelector('.nav-buttons .btn-primary');
+                if (nextBtn && !nextBtn.disabled) {
+                    nextBtn.click();
+                }
+            } else if (e.key === 'ArrowLeft') {
+                const prevBtn = document.querySelector('.nav-buttons .btn-secondary');
+                if (prevBtn && !prevBtn.disabled) {
+                    prevBtn.click();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
