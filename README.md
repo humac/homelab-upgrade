@@ -26,12 +26,46 @@ This guide walks you through upgrading from a basic homelab setup to a professio
 
 ## Quick Start
 
+### Option 1: Direct Browser Access
 Simply open `index.html` in your browser to get started!
 
-For local development server:
+### Option 2: Local Development Server
 ```bash
 python3 -m http.server 8000
 # Then visit http://localhost:8000
+```
+
+### Option 3: Docker (Recommended for Production)
+
+#### Using Docker Compose (Easiest)
+```bash
+# Build and start the container
+docker-compose up -d
+
+# Visit http://localhost:8080
+```
+
+#### Using Docker directly
+```bash
+# Build the image
+docker build -t homelab-upgrade-guide .
+
+# Run the container
+docker run -d -p 8080:80 --name homelab-guide homelab-upgrade-guide
+
+# Visit http://localhost:8080
+```
+
+#### Docker Commands
+```bash
+# View logs
+docker-compose logs -f
+
+# Stop the container
+docker-compose down
+
+# Rebuild after changes
+docker-compose up -d --build
 ```
 
 ## Project Structure
@@ -47,6 +81,10 @@ homelab-upgrade/
 │   └── utils.js            # Utility functions
 ├── data/
 │   └── phases.json         # All phase content and data
+├── Dockerfile              # Docker container definition
+├── docker-compose.yml      # Docker Compose configuration
+├── nginx.conf              # Nginx web server config
+├── .dockerignore           # Docker build exclusions
 └── README.md               # This file
 ```
 
@@ -68,6 +106,8 @@ homelab-upgrade/
 - ES6 Modules for clean architecture
 - localStorage for state persistence
 - Responsive CSS Grid & Flexbox layout
+- Docker containerization with Nginx Alpine
+- Production-ready with security headers and gzip compression
 
 ---
 
