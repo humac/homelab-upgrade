@@ -4,41 +4,115 @@
       "id": "overview",
       "title": "Project Overview",
       "badge": "Overview",
-      "icon": "📋",
+      "icon": "\ud83d\udccb",
       "meta": [],
       "content": {
         "intro": "A professional-grade 10G homelab that rivals $8,000+ commercial solutions for just <strong>$2,459</strong>.",
         "sections": [
           {
-            "title": "📊 Key Improvements",
+            "title": "\ud83d\udcca Key Improvements",
             "type": "table",
             "data": {
-              "headers": ["Component", "Before", "After", "Improvement"],
+              "headers": [
+                "Component",
+                "Before",
+                "After",
+                "Improvement"
+              ],
               "rows": [
-                ["NAS Storage", "24TB SMR (JBOD)", "36TB CMR (RAIDZ1)", "+50% capacity, data protection"],
-                ["RAM", "8GB", "64GB DDR5-5600", "8× increase, 30-40GB ZFS cache (auto-tuned)"],
-                ["NAS ↔ Server", "1 Gbps", "20 Gbps LACP", "20× faster"],
-                ["Network Uplink", "1 Gbps", "10 Gbps", "10× faster"],
-                ["Data Protection", "None", "Snapshots, replication", "Enterprise-grade"]
+                [
+                  "NAS Storage",
+                  "24TB SMR (JBOD)",
+                  "36TB CMR (RAIDZ1)",
+                  "+50% capacity, data protection"
+                ],
+                [
+                  "RAM",
+                  "8GB",
+                  "64GB DDR5-5600",
+                  "8\u00d7 increase, 30-40GB ZFS cache (auto-tuned)"
+                ],
+                [
+                  "NAS \u2194 Server",
+                  "1 Gbps",
+                  "20 Gbps LACP",
+                  "20\u00d7 faster"
+                ],
+                [
+                  "Network Uplink",
+                  "1 Gbps",
+                  "10 Gbps",
+                  "10\u00d7 faster"
+                ],
+                [
+                  "Data Protection",
+                  "None",
+                  "Snapshots, replication",
+                  "Enterprise-grade"
+                ]
               ]
             }
           },
           {
-            "title": "💰 Cost Breakdown",
+            "title": "\ud83d\udcb0 Cost Breakdown",
             "type": "table",
             "data": {
-              "headers": ["Item", "Source", "Cost (CAD)"],
+              "headers": [
+                "Item",
+                "Source",
+                "Cost (CAD)"
+              ],
               "rows": [
-                ["TerraMaster F6-424 Max", "FB Marketplace", "$775"],
-                ["64GB DDR5-5600 RAM", "Marketplace", "$400"],
-                ["WD_BLACK SN7100 1TB NVMe", "Best Buy", "$119"],
-                ["4× WD Red Plus 12TB CMR", "Canada Computers", "$1,116"],
-                ["UniFi USW-Aggregation", "Online", "$499"],
-                ["5× 10G SFP+ DAC cables", "FS.com", "$150"],
-                ["QLogic 10G NIC", "Owned", "$0"],
-                ["__total__", "HARDWARE TOTAL", "$3,059"],
-                ["__credit__", "Sell 6× Seagate 8TB SMR", "-$600"],
-                ["__final__", "NET COST", "$2,459"]
+                [
+                  "TerraMaster F6-424 Max",
+                  "FB Marketplace",
+                  "$775"
+                ],
+                [
+                  "64GB DDR5-5600 RAM",
+                  "Marketplace",
+                  "$400"
+                ],
+                [
+                  "WD_BLACK SN7100 1TB NVMe",
+                  "Best Buy",
+                  "$119"
+                ],
+                [
+                  "4\u00d7 WD Red Plus 12TB CMR",
+                  "Canada Computers",
+                  "$1,116"
+                ],
+                [
+                  "UniFi USW-Aggregation",
+                  "Online",
+                  "$499"
+                ],
+                [
+                  "5\u00d7 10G SFP+ DAC cables",
+                  "FS.com",
+                  "$150"
+                ],
+                [
+                  "QLogic 10G NIC",
+                  "Owned",
+                  "$0"
+                ],
+                [
+                  "__total__",
+                  "HARDWARE TOTAL",
+                  "$3,059"
+                ],
+                [
+                  "__credit__",
+                  "Sell 6\u00d7 Seagate 8TB SMR",
+                  "-$600"
+                ],
+                [
+                  "__final__",
+                  "NET COST",
+                  "$2,459"
+                ]
               ]
             }
           }
@@ -51,33 +125,45 @@
       "badge": "Phase 0",
       "icon": "0",
       "meta": [
-        {"icon": "⏱️", "label": "Time", "value": "30 minutes"},
-        {"icon": "📅", "label": "When", "value": "Day 0 (Tonight)"},
-        {"icon": "🛠️", "label": "Tools", "value": "PC, USB drive (8GB+)"}
+        {
+          "icon": "\u23f1\ufe0f",
+          "label": "Time",
+          "value": "30 minutes"
+        },
+        {
+          "icon": "\ud83d\udcc5",
+          "label": "When",
+          "value": "Day 0 (Tonight)"
+        },
+        {
+          "icon": "\ud83d\udee0\ufe0f",
+          "label": "Tools",
+          "value": "PC, USB drive (8GB+)"
+        }
       ],
       "content": {
         "intro": "Get everything ready before starting the hardware installation.",
         "sections": [
           {
-            "title": "✅ Hardware Checklist",
+            "title": "\u2705 Hardware Checklist",
             "type": "checklist",
             "items": [
               "TerraMaster F6-424 Max received",
-              "64GB DDR5-5600 RAM (1× SODIMM)",
+              "64GB DDR5-5600 RAM (1\u00d7 SODIMM)",
               "WD_BLACK SN7100 1TB NVMe",
-              "4× WD Red Plus 12TB (WD120EFBX)",
+              "4\u00d7 WD Red Plus 12TB (WD120EFBX)",
               "UniFi USW-Aggregation",
-              "5× 10G SFP+ DAC cables (4×1m, 1×0.5m)",
+              "5\u00d7 10G SFP+ DAC cables (4\u00d71m, 1\u00d70.5m)",
               "QLogic dual-10G SFP+ NIC (already owned)"
             ]
           },
           {
-            "title": "📥 Download TrueNAS SCALE",
+            "title": "\ud83d\udce5 Download TrueNAS SCALE",
             "type": "info",
             "content": "<strong>Download Link:</strong><br><a href='https://www.truenas.com/download-truenas-scale/' target='_blank'>https://www.truenas.com/download-truenas-scale/</a><br><strong>File:</strong> TrueNAS-SCALE-24.10.1.iso (~1.5GB)"
           },
           {
-            "title": "🔧 Tools Preparation",
+            "title": "\ud83d\udd27 Tools Preparation",
             "type": "checklist",
             "items": [
               "Phillips #2 screwdriver",
@@ -96,9 +182,21 @@
       "badge": "Phase 1",
       "icon": "1",
       "meta": [
-        {"icon": "⏱️", "label": "Time", "value": "1 hour"},
-        {"icon": "📅", "label": "When", "value": "Day 1 (Evening)"},
-        {"icon": "🛠️", "label": "Tools", "value": "Phillips #2 screwdriver, anti-static wrist strap"}
+        {
+          "icon": "\u23f1\ufe0f",
+          "label": "Time",
+          "value": "1 hour"
+        },
+        {
+          "icon": "\ud83d\udcc5",
+          "label": "When",
+          "value": "Day 1 (Evening)"
+        },
+        {
+          "icon": "\ud83d\udee0\ufe0f",
+          "label": "Tools",
+          "value": "Phillips #2 screwdriver, anti-static wrist strap"
+        }
       ],
       "content": {
         "intro": "Install RAM, NVMe SSD, and hard drives into the TerraMaster unit.",
@@ -113,11 +211,11 @@
               },
               {
                 "title": "Install 1TB NVMe SSD",
-                "content": "Insert WD_BLACK SN7100 into M.2 Slot 1 at 30° angle, press flat, secure with screw."
+                "content": "Insert WD_BLACK SN7100 into M.2 Slot 1 at 30\u00b0 angle, press flat, secure with screw."
               },
               {
                 "title": "Install Hard Drives",
-                "content": "Insert 4× WD Red Plus 12TB into drive bays 1-4 using tool-less trays."
+                "content": "Insert 4\u00d7 WD Red Plus 12TB into drive bays 1-4 using tool-less trays."
               }
             ]
           }
@@ -130,13 +228,30 @@
       "badge": "Phase 2",
       "icon": "2",
       "meta": [
-        {"icon": "⏱️", "label": "Time", "value": "30 minutes"},
-        {"icon": "📅", "label": "When", "value": "Day 2 (Morning)"},
-        {"icon": "🛠️", "label": "Required", "value": "USB installer, keyboard, monitor"}
+        {
+          "icon": "\u23f1\ufe0f",
+          "label": "Time",
+          "value": "30 minutes"
+        },
+        {
+          "icon": "\ud83d\udcc5",
+          "label": "When",
+          "value": "Day 2 (Morning)"
+        },
+        {
+          "icon": "\ud83d\udee0\ufe0f",
+          "label": "Required",
+          "value": "USB installer, keyboard, monitor"
+        }
       ],
       "content": {
         "intro": "Install TrueNAS SCALE operating system and configure basic settings.",
         "sections": [
+          {
+            "title": "\u26a0\ufe0f CRITICAL: User Creation Timing",
+            "type": "danger",
+            "content": "You MUST create the admin user (UID 1000) BEFORE creating any ZFS pools in Phase 3. This ensures correct file permissions. Verify user creation with: <code>id huynguyen</code>"
+          },
           {
             "title": "Installation Steps",
             "type": "steps",
@@ -151,11 +266,59 @@
               },
               {
                 "title": "Configure Static IP",
-                "content": "Set static IP 10.20.30.100 in Network → Global Configuration."
+                "content": "Set static IP 10.20.30.100 in Network \u2192 Global Configuration."
               },
               {
                 "title": "Create Admin User",
                 "content": "Create user 'huynguyen' with UID 1000 for proper file permissions."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "phase2-5",
+      "title": "Initial Network Connectivity",
+      "badge": "Phase 2.5",
+      "icon": "\ud83d\udd0c",
+      "meta": [
+        {
+          "icon": "\u23f1\ufe0f",
+          "label": "Time",
+          "value": "15 minutes"
+        },
+        {
+          "icon": "\ud83d\udcc5",
+          "label": "When",
+          "value": "Day 2 (Before Phase 3)"
+        }
+      ],
+      "content": {
+        "intro": "Verify basic network connectivity and update TrueNAS before proceeding to storage configuration.",
+        "sections": [
+          {
+            "title": "Network Verification",
+            "type": "checklist",
+            "items": [
+              "Ping gateway: ping 10.20.30.1",
+              "Ping internet: ping 8.8.8.8",
+              "Test DNS: nslookup truenas.com",
+              "Verify web GUI access from PC",
+              "Check system logs for errors"
+            ]
+          },
+          {
+            "title": "System Updates",
+            "type": "steps",
+            "items": [
+              {
+                "title": "Update TrueNAS",
+                "content": "Navigate to System \u2192 Update, check for updates, download and install if available. System will reboot (~5 minutes)."
+              },
+              {
+                "title": "Verify Services",
+                "content": "After reboot, confirm all services started: System \u2192 Services. SSH should be enabled for future troubleshooting."
               }
             ]
           }
@@ -168,16 +331,34 @@
       "badge": "Phase 3",
       "icon": "3",
       "meta": [
-        {"icon": "⏱️", "label": "Time", "value": "1 hour"},
-        {"icon": "📅", "label": "When", "value": "Day 2 (Morning)"}
+        {
+          "icon": "\u23f1\ufe0f",
+          "label": "Time",
+          "value": "1 hour"
+        },
+        {
+          "icon": "\ud83d\udcc5",
+          "label": "When",
+          "value": "Day 2 (Morning)"
+        }
       ],
       "content": {
         "intro": "Create ZFS pools and datasets for optimal performance and organization.",
         "sections": [
           {
+            "title": "\u26a0\ufe0f CRITICAL: NVMe Boot Pool Protection",
+            "type": "danger",
+            "content": "Before creating apps-ssd pool, verify boot pool location: <code>zpool status boot-pool</code> and <code>lsblk /dev/nvme0n1</code>. Ensure you ONLY use free space (typically nvme0n1p3). DO NOT accidentally erase boot-pool!"
+          },
+          {
             "title": "Storage Strategy",
             "type": "info",
-            "content": "<strong>Two-Pool Design:</strong><br>• <strong>tank</strong> (HDD RAIDZ1): Bulk storage for media (36TB usable)<br>• <strong>apps-ssd</strong> (NVMe): Fast storage for app configs (~900GB usable)"
+            "content": "<strong>Two-Pool Design:</strong><br>\u2022 <strong>tank</strong> (HDD RAIDZ1): Bulk storage for media (36TB usable)<br>\u2022 <strong>apps-ssd</strong> (NVMe): Fast storage for app configs (~900GB usable)"
+          },
+          {
+            "title": "\ud83d\udea8 POINT OF NO RETURN",
+            "type": "danger",
+            "content": "<strong>WARNING: Creating ZFS pools ERASES ALL DATA on those drives!</strong><br><br>Before running 'zpool create tank raidz1 /dev/sd[abcd]':<br>\u2713 Triple-check device names: <code>lsblk</code><br>\u2713 Verify no mounted filesystems: <code>mount | grep sd</code><br>\u2713 Confirm backup exists elsewhere<br>\u2713 Take photos of disk serial numbers<br><br>This operation is IRREVERSIBLE!"
           },
           {
             "title": "Configuration Steps",
@@ -185,7 +366,7 @@
             "items": [
               {
                 "title": "Create Pool 'tank'",
-                "content": "4× 12TB RAIDZ1 configuration with lz4 compression."
+                "content": "4\u00d7 12TB RAIDZ1 configuration with lz4 compression."
               },
               {
                 "title": "Create Pool 'apps-ssd'",
@@ -206,9 +387,21 @@
       "badge": "Phase 4",
       "icon": "4",
       "meta": [
-        {"icon": "⏱️", "label": "Time", "value": "2-3 hours"},
-        {"icon": "📅", "label": "When", "value": "Day 3"},
-        {"icon": "🛠️", "label": "Required", "value": "USW-Aggregation, 5× DAC cables, QLogic NIC"}
+        {
+          "icon": "\u23f1\ufe0f",
+          "label": "Time",
+          "value": "2-3 hours"
+        },
+        {
+          "icon": "\ud83d\udcc5",
+          "label": "When",
+          "value": "Day 3"
+        },
+        {
+          "icon": "\ud83d\udee0\ufe0f",
+          "label": "Required",
+          "value": "USW-Aggregation, 5\u00d7 DAC cables, QLogic NIC"
+        }
       ],
       "content": {
         "intro": "Set up 10G networking with LACP bonding for 20 Gbps aggregate bandwidth.",
@@ -217,6 +410,10 @@
             "title": "Network Setup",
             "type": "steps",
             "items": [
+              {
+                "title": "Baseline 10G Test (BEFORE LACP)",
+                "content": "Connect SINGLE cable TerraMaster Port 1 \u2192 USW Port 2. Verify 10G link speed. Run iperf3 single stream test (~9.4 Gbps expected). This confirms cabling/NICs work before LACP complexity."
+              },
               {
                 "title": "Install USW-Aggregation",
                 "content": "Rack mount switch, connect to UDM, adopt in UniFi controller."
@@ -227,7 +424,7 @@
               },
               {
                 "title": "Configure TrueNAS LACP Bond",
-                "content": "Create bond0 with 2×10G interfaces, set MTU 9000."
+                "content": "Create bond0 with 2\u00d710G interfaces, set MTU 9000."
               },
               {
                 "title": "Configure Proxmox LACP Bond",
@@ -248,8 +445,16 @@
       "badge": "Phase 5",
       "icon": "5",
       "meta": [
-        {"icon": "⏱️", "label": "Time", "value": "1 hour"},
-        {"icon": "📅", "label": "When", "value": "Day 3 (Afternoon)"}
+        {
+          "icon": "\u23f1\ufe0f",
+          "label": "Time",
+          "value": "1 hour"
+        },
+        {
+          "icon": "\ud83d\udcc5",
+          "label": "When",
+          "value": "Day 3 (Afternoon)"
+        }
       ],
       "content": {
         "intro": "Configure VLANs and firewall rules for network segmentation and security.",
@@ -258,19 +463,49 @@
             "title": "VLAN Structure",
             "type": "table",
             "data": {
-              "headers": ["VLAN", "Name", "Subnet", "Purpose"],
+              "headers": [
+                "VLAN",
+                "Name",
+                "Subnet",
+                "Purpose"
+              ],
               "rows": [
-                ["1", "Admin", "10.20.30.0/24", "Infrastructure management"],
-                ["30", "Home", "10.0.30.0/24", "Trusted devices"],
-                ["20", "IoT", "10.0.20.0/24", "Smart home devices"],
-                ["40", "Guest", "10.0.40.0/24", "Guest WiFi (isolated)"]
+                [
+                  "1",
+                  "Admin",
+                  "10.20.30.0/24",
+                  "Infrastructure management"
+                ],
+                [
+                  "30",
+                  "Home",
+                  "10.0.30.0/24",
+                  "Trusted devices"
+                ],
+                [
+                  "20",
+                  "IoT",
+                  "10.0.20.0/24",
+                  "Smart home devices"
+                ],
+                [
+                  "40",
+                  "Guest",
+                  "10.0.40.0/24",
+                  "Guest WiFi (isolated)"
+                ]
               ]
             }
           },
           {
+            "title": "\u26a0\ufe0f Backup Plan for VLAN Changes",
+            "type": "warning",
+            "content": "<strong>VLAN changes can cause loss of connectivity!</strong><br><br>Before starting:<br>\u2713 Have console/keyboard access ready<br>\u2713 Document rollback command: <code>ip addr add 10.20.30.100/24 dev enp1s0</code><br>\u2713 Test VLAN access BEFORE removing native VLAN 1<br>\u2713 Consider: Keep TrueNAS on Admin VLAN 1 (untagged) for simplicity"
+          },
+          {
             "title": "Firewall Rules",
             "type": "info",
-            "content": "Configure rules to allow Home → NAS services, block Home → Infrastructure, allow IoT backups, complete guest isolation."
+            "content": "Configure rules to allow Home \u2192 NAS services, block Home \u2192 Infrastructure, allow IoT backups, complete guest isolation."
           }
         ]
       }
@@ -281,13 +516,37 @@
       "badge": "Phase 6",
       "icon": "6",
       "meta": [
-        {"icon": "⏱️", "label": "Time", "value": "8-12 hours"},
-        {"icon": "📅", "label": "When", "value": "Day 4"},
-        {"icon": "💾", "label": "Data", "value": "~24TB total"}
+        {
+          "icon": "\u23f1\ufe0f",
+          "label": "Time",
+          "value": "8-12 hours"
+        },
+        {
+          "icon": "\ud83d\udcc5",
+          "label": "When",
+          "value": "Day 4"
+        },
+        {
+          "icon": "\ud83d\udcbe",
+          "label": "Data",
+          "value": "~24TB total"
+        }
       ],
       "content": {
         "intro": "Migrate all data from QNAP to TrueNAS using parallel rsync for maximum speed.",
         "sections": [
+          {
+            "title": "Pre-Migration Validation (CRITICAL)",
+            "type": "checklist",
+            "items": [
+              "Run QNAP SMART tests on all 6 drives",
+              "Check QNAP filesystem errors: dmesg | grep -i error",
+              "Verify QNAP RAID is healthy",
+              "Document file counts: find /share -type f | wc -l",
+              "Create checksums for critical data",
+              "VERIFY external backup exists"
+            ]
+          },
           {
             "title": "Migration Strategy",
             "type": "info",
@@ -300,6 +559,10 @@
               {
                 "title": "Enable SSH on QNAP",
                 "content": "Enable SSH access for rsync transfers."
+              },
+              {
+                "title": "Monitor QNAP CPU Load",
+                "content": "Start with 2 parallel streams (movies + TV). Monitor QNAP CPU with 'top'. If CPU < 80%, add 3rd stream. If CPU < 85%, add 4th. QNAP Atom CPU may throttle at 90-95%."
               },
               {
                 "title": "Set Up Screen Sessions",
@@ -323,13 +586,80 @@
       }
     },
     {
+      "id": "phase6-5",
+      "title": "Post-Migration Data Validation",
+      "badge": "Phase 6.5",
+      "icon": "\u2713",
+      "meta": [
+        {
+          "icon": "\u23f1\ufe0f",
+          "label": "Time",
+          "value": "1 hour"
+        },
+        {
+          "icon": "\ud83d\udcc5",
+          "label": "When",
+          "value": "Day 4 (After migration)"
+        }
+      ],
+      "content": {
+        "intro": "Verify data integrity and completeness after migration from QNAP.",
+        "sections": [
+          {
+            "title": "Data Integrity Verification",
+            "type": "checklist",
+            "items": [
+              "Compare file counts (source vs destination)",
+              "Verify checksums for critical data (photos, documents)",
+              "Spot-check 20+ random files across all datasets",
+              "Test file access: Play random movie, open photos",
+              "Check ownership: ls -la /mnt/tank/media",
+              "Verify no permission errors in TrueNAS logs",
+              "Compare total disk usage: du -sh on both systems"
+            ]
+          },
+          {
+            "title": "Functional Testing",
+            "type": "steps",
+            "items": [
+              {
+                "title": "Test Media Playback",
+                "content": "Open 5+ random video files. Verify they play without corruption. Check audio sync and video quality."
+              },
+              {
+                "title": "Test Document Access",
+                "content": "Open 10+ random documents (PDFs, Office files). Verify no corruption or missing content."
+              },
+              {
+                "title": "Test Photo Library",
+                "content": "Browse photo directories. Open random images. Verify thumbnails generate correctly."
+              }
+            ]
+          },
+          {
+            "title": "\u26a0\ufe0f DO NOT Proceed Until",
+            "type": "danger",
+            "content": "\u2713 All file counts match<br>\u2713 No rsync errors in logs<br>\u2713 Random file spot-checks pass<br>\u2713 TrueNAS shows no errors<br><br><strong>Keep QNAP powered on and data intact for at least 7 days as insurance!</strong>"
+          }
+        ]
+      }
+    },
+    {
       "id": "phase7",
       "title": "Performance Testing & Validation",
       "badge": "Phase 7",
       "icon": "7",
       "meta": [
-        {"icon": "⏱️", "label": "Time", "value": "1 hour"},
-        {"icon": "📅", "label": "When", "value": "Day 5"}
+        {
+          "icon": "\u23f1\ufe0f",
+          "label": "Time",
+          "value": "1 hour"
+        },
+        {
+          "icon": "\ud83d\udcc5",
+          "label": "When",
+          "value": "Day 5"
+        }
       ],
       "content": {
         "intro": "Validate system performance and ensure all components meet specifications.",
@@ -338,12 +668,17 @@
             "title": "Success Criteria",
             "type": "checklist",
             "items": [
-              "Network (iperf3): 18-20 Gbps aggregate TrueNAS ↔ Proxmox",
+              "Network (iperf3): 18-20 Gbps aggregate TrueNAS \u2194 Proxmox",
               "ZFS Read: ~1,200 MB/s (cache miss), ~12,000 MB/s (ARC cache hit)",
               "ZFS Write: ~900 MB/s (RAIDZ1 disk-limited)",
-              "LACP Bonds: Both showing Aggregator ID 1, 2×10G active",
+              "LACP Bonds: Both showing Aggregator ID 1, 2\u00d710G active",
               "ZFS ARC: 30-40GB allocated, 90%+ hit rate"
             ]
+          },
+          {
+            "title": "Extended Burn-In Testing (Recommended)",
+            "type": "info",
+            "content": "<strong>Optional but highly recommended for production use:</strong><br><br>\u2713 Run iperf3 for 1 hour continuous (stability test)<br>\u2713 Run fio disk stress test: 24 hours<br>\u2713 Monitor drive temps during heavy I/O (should stay < 50\u00b0C)<br>\u2713 Verify ZFS scrub completes without errors<br>\u2713 Check kernel errors: <code>dmesg | grep -i error</code><br><br>This catches infant mortality failures before you rely on the system."
           }
         ]
       }
@@ -354,8 +689,16 @@
       "badge": "Phase 8",
       "icon": "8",
       "meta": [
-        {"icon": "⏱️", "label": "Time", "value": "1 hour"},
-        {"icon": "📅", "label": "When", "value": "Day 5+"}
+        {
+          "icon": "\u23f1\ufe0f",
+          "label": "Time",
+          "value": "1 hour"
+        },
+        {
+          "icon": "\ud83d\udcc5",
+          "label": "When",
+          "value": "Day 5+"
+        }
       ],
       "content": {
         "intro": "Configure automated tasks and monitoring for long-term reliability.",
@@ -366,10 +709,22 @@
             "content": "<strong>SMART Tests:</strong> Weekly long tests (Sunday 2 AM)<br><strong>ZFS Scrubs:</strong> Monthly integrity checks<br><strong>Snapshots:</strong> Photos hourly (30-day), Media daily (7-day), Documents 6-hourly (60-day)<br><strong>Email Alerts:</strong> Pool status, SMART failures, high temps"
           },
           {
+            "title": "Critical: TrueNAS Config Backup",
+            "type": "checklist",
+            "items": [
+              "System \u2192 General \u2192 Save Config \u2192 Download .tar file",
+              "Store config on: External drive + cloud + Proxmox",
+              "Export pool info: zpool export tank (for disaster recovery docs)",
+              "Document: Pool creation commands, dataset structure",
+              "Schedule: Weekly config backups to /mnt/tank/backups/",
+              "Test: Restore config on test VM to verify backup works"
+            ]
+          },
+          {
             "title": "Final Validation",
             "type": "checklist",
             "items": [
-              "Network: 18-20 Gbps verified ✓",
+              "Network: 18-20 Gbps verified \u2713",
               "ZFS ARC: 30-40GB auto-allocated, 90%+ hit rate",
               "All 24TB data migrated and verified",
               "SMART tests scheduled",
@@ -382,10 +737,80 @@
       }
     },
     {
+      "id": "phase9",
+      "title": "QNAP Decommissioning",
+      "badge": "Phase 9",
+      "icon": "9",
+      "meta": [
+        {
+          "icon": "\u23f1\ufe0f",
+          "label": "Time",
+          "value": "2 hours"
+        },
+        {
+          "icon": "\ud83d\udcc5",
+          "label": "When",
+          "value": "After 7+ days stable operation"
+        }
+      ],
+      "content": {
+        "intro": "Safely decommission the QNAP after confirming TrueNAS is stable and all data is verified.",
+        "sections": [
+          {
+            "title": "\u26a0\ufe0f Wait Period Required",
+            "type": "warning",
+            "content": "<strong>DO NOT decommission QNAP until:</strong><br>\u2713 TrueNAS has been stable for 7+ days<br>\u2713 You've accessed files daily without issues<br>\u2713 All services (Plex, etc.) work correctly<br>\u2713 You're 100% confident data is intact<br><br>The QNAP is your insurance policy - don't rush this!"
+          },
+          {
+            "title": "Final Backup (Paranoia Backup)",
+            "type": "checklist",
+            "items": [
+              "One final checksum verification of critical files",
+              "Document any files you intentionally didn't migrate",
+              "Export QNAP configuration for records",
+              "Take screenshots of QNAP setup for documentation",
+              "Verify you have TrueNAS config backups elsewhere"
+            ]
+          },
+          {
+            "title": "Decommissioning Steps",
+            "type": "steps",
+            "items": [
+              {
+                "title": "Update Client Mount Points",
+                "content": "Update all devices pointing to QNAP NFS/SMB shares to use TrueNAS (10.20.30.100) instead. Test each client."
+              },
+              {
+                "title": "Update Documentation",
+                "content": "Update network diagrams, wiki pages, configuration management with new TrueNAS paths and IPs."
+              },
+              {
+                "title": "Power Down QNAP",
+                "content": "Gracefully shut down QNAP from web interface. Wait 7 more days with it powered off but data intact."
+              },
+              {
+                "title": "Wipe QNAP Drives",
+                "content": "After 14 days total, securely wipe QNAP drives if selling/repurposing: <code>dd if=/dev/zero of=/dev/sdX bs=1M</code>"
+              },
+              {
+                "title": "Sell or Repurpose QNAP",
+                "content": "List on eBay/Craigslist. Expected value: $200-$300. Alternatively, repurpose as backup NAS or test system."
+              }
+            ]
+          },
+          {
+            "title": "\u2705 Upgrade Complete!",
+            "type": "success",
+            "content": "<strong>Congratulations! You've successfully upgraded to a professional 10G homelab!</strong><br><br>\u2713 36TB ZFS RAIDZ1 with enterprise-grade protection<br>\u2713 64GB RAM with 30-40GB ZFS ARC cache<br>\u2713 20 Gbps LACP aggregate bandwidth<br>\u2713 Professional network segmentation<br>\u2713 Automated monitoring and backups<br><br><strong>Total investment: $2,459 CAD (after selling QNAP)</strong><br>Equivalent commercial solution: $8,000+<br><br>\ud83c\udf89 Enjoy your new infrastructure!"
+          }
+        ]
+      }
+    },
+    {
       "id": "diagrams",
       "title": "Network Architecture Diagrams",
       "badge": "Reference",
-      "icon": "📊",
+      "icon": "\ud83d\udcca",
       "meta": [],
       "content": {
         "intro": "Visual reference for network topology and VLAN configuration.",
@@ -393,19 +818,49 @@
           {
             "title": "Network Topology",
             "type": "info",
-            "content": "UDM Pro SE (10.20.30.1) → USW-Aggregation (10.20.30.2) → LAG1: TerraMaster (10.20.30.100) + LAG2: Proxmox (10.20.30.101)"
+            "content": "UDM Pro SE (10.20.30.1) \u2192 USW-Aggregation (10.20.30.2) \u2192 LAG1: TerraMaster (10.20.30.100) + LAG2: Proxmox (10.20.30.101)"
           },
           {
             "title": "DAC Cable Assignment",
             "type": "table",
             "data": {
-              "headers": ["Cable", "From", "To", "Purpose"],
+              "headers": [
+                "Cable",
+                "From",
+                "To",
+                "Purpose"
+              ],
               "rows": [
-                ["0.5m DAC", "UDM Port 10", "USW Port 1", "Uplink (10G)"],
-                ["1m DAC #1", "TerraMaster Port 1", "USW Port 2", "LAG1 Member 1"],
-                ["1m DAC #2", "TerraMaster Port 2", "USW Port 3", "LAG1 Member 2"],
-                ["1m DAC #3", "Dell QLogic Port A", "USW Port 4", "LAG2 Member 1"],
-                ["1m DAC #4", "Dell QLogic Port B", "USW Port 5", "LAG2 Member 2"]
+                [
+                  "0.5m DAC",
+                  "UDM Port 10",
+                  "USW Port 1",
+                  "Uplink (10G)"
+                ],
+                [
+                  "1m DAC #1",
+                  "TerraMaster Port 1",
+                  "USW Port 2",
+                  "LAG1 Member 1"
+                ],
+                [
+                  "1m DAC #2",
+                  "TerraMaster Port 2",
+                  "USW Port 3",
+                  "LAG1 Member 2"
+                ],
+                [
+                  "1m DAC #3",
+                  "Dell QLogic Port A",
+                  "USW Port 4",
+                  "LAG2 Member 1"
+                ],
+                [
+                  "1m DAC #4",
+                  "Dell QLogic Port B",
+                  "USW Port 5",
+                  "LAG2 Member 2"
+                ]
               ]
             }
           }
