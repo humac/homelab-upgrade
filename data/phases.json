@@ -1,0 +1,416 @@
+{
+  "phases": [
+    {
+      "id": "overview",
+      "title": "Project Overview",
+      "badge": "Overview",
+      "icon": "📋",
+      "meta": [],
+      "content": {
+        "intro": "A professional-grade 10G homelab that rivals $8,000+ commercial solutions for just <strong>$2,459</strong>.",
+        "sections": [
+          {
+            "title": "📊 Key Improvements",
+            "type": "table",
+            "data": {
+              "headers": ["Component", "Before", "After", "Improvement"],
+              "rows": [
+                ["NAS Storage", "24TB SMR (JBOD)", "36TB CMR (RAIDZ1)", "+50% capacity, data protection"],
+                ["RAM", "8GB", "64GB DDR5-5600", "8× increase, 30-40GB ZFS cache (auto-tuned)"],
+                ["NAS ↔ Server", "1 Gbps", "20 Gbps LACP", "20× faster"],
+                ["Network Uplink", "1 Gbps", "10 Gbps", "10× faster"],
+                ["Data Protection", "None", "Snapshots, replication", "Enterprise-grade"]
+              ]
+            }
+          },
+          {
+            "title": "💰 Cost Breakdown",
+            "type": "table",
+            "data": {
+              "headers": ["Item", "Source", "Cost (CAD)"],
+              "rows": [
+                ["TerraMaster F6-424 Max", "FB Marketplace", "$775"],
+                ["64GB DDR5-5600 RAM", "Marketplace", "$400"],
+                ["WD_BLACK SN7100 1TB NVMe", "Best Buy", "$119"],
+                ["4× WD Red Plus 12TB CMR", "Canada Computers", "$1,116"],
+                ["UniFi USW-Aggregation", "Online", "$499"],
+                ["5× 10G SFP+ DAC cables", "FS.com", "$150"],
+                ["QLogic 10G NIC", "Owned", "$0"],
+                ["__total__", "HARDWARE TOTAL", "$3,059"],
+                ["__credit__", "Sell 6× Seagate 8TB SMR", "-$600"],
+                ["__final__", "NET COST", "$2,459"]
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "phase0",
+      "title": "Pre-Migration Preparation",
+      "badge": "Phase 0",
+      "icon": "0",
+      "meta": [
+        {"icon": "⏱️", "label": "Time", "value": "30 minutes"},
+        {"icon": "📅", "label": "When", "value": "Day 0 (Tonight)"},
+        {"icon": "🛠️", "label": "Tools", "value": "PC, USB drive (8GB+)"}
+      ],
+      "content": {
+        "intro": "Get everything ready before starting the hardware installation.",
+        "sections": [
+          {
+            "title": "✅ Hardware Checklist",
+            "type": "checklist",
+            "items": [
+              "TerraMaster F6-424 Max received",
+              "64GB DDR5-5600 RAM (1× SODIMM)",
+              "WD_BLACK SN7100 1TB NVMe",
+              "4× WD Red Plus 12TB (WD120EFBX)",
+              "UniFi USW-Aggregation",
+              "5× 10G SFP+ DAC cables (4×1m, 1×0.5m)",
+              "QLogic dual-10G SFP+ NIC (already owned)"
+            ]
+          },
+          {
+            "title": "📥 Download TrueNAS SCALE",
+            "type": "info",
+            "content": "<strong>Download Link:</strong><br><a href='https://www.truenas.com/download-truenas-scale/' target='_blank'>https://www.truenas.com/download-truenas-scale/</a><br><strong>File:</strong> TrueNAS-SCALE-24.10.1.iso (~1.5GB)"
+          },
+          {
+            "title": "🔧 Tools Preparation",
+            "type": "checklist",
+            "items": [
+              "Phillips #2 screwdriver",
+              "Anti-static wrist strap (recommended)",
+              "Keyboard + monitor (or laptop for headless)",
+              "Network cables (CAT6 minimum)",
+              "Password manager ready for credentials"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "phase1",
+      "title": "Hardware Installation",
+      "badge": "Phase 1",
+      "icon": "1",
+      "meta": [
+        {"icon": "⏱️", "label": "Time", "value": "1 hour"},
+        {"icon": "📅", "label": "When", "value": "Day 1 (Evening)"},
+        {"icon": "🛠️", "label": "Tools", "value": "Phillips #2 screwdriver, anti-static wrist strap"}
+      ],
+      "content": {
+        "intro": "Install RAM, NVMe SSD, and hard drives into the TerraMaster unit.",
+        "sections": [
+          {
+            "title": "Installation Steps",
+            "type": "steps",
+            "items": [
+              {
+                "title": "Install 64GB DDR5 RAM",
+                "content": "Remove bottom panel, locate RAM slot, remove existing 8GB module, install new 64GB DDR5-5600 SODIMM."
+              },
+              {
+                "title": "Install 1TB NVMe SSD",
+                "content": "Insert WD_BLACK SN7100 into M.2 Slot 1 at 30° angle, press flat, secure with screw."
+              },
+              {
+                "title": "Install Hard Drives",
+                "content": "Insert 4× WD Red Plus 12TB into drive bays 1-4 using tool-less trays."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "phase2",
+      "title": "TrueNAS SCALE Installation",
+      "badge": "Phase 2",
+      "icon": "2",
+      "meta": [
+        {"icon": "⏱️", "label": "Time", "value": "30 minutes"},
+        {"icon": "📅", "label": "When", "value": "Day 2 (Morning)"},
+        {"icon": "🛠️", "label": "Required", "value": "USB installer, keyboard, monitor"}
+      ],
+      "content": {
+        "intro": "Install TrueNAS SCALE operating system and configure basic settings.",
+        "sections": [
+          {
+            "title": "Installation Steps",
+            "type": "steps",
+            "items": [
+              {
+                "title": "Boot from USB Installer",
+                "content": "Insert USB, press DEL or F11 during boot, select USB device."
+              },
+              {
+                "title": "Install TrueNAS to NVMe",
+                "content": "Choose Install/Upgrade, select /dev/nvme0n1, set root password, wait ~5 minutes."
+              },
+              {
+                "title": "Configure Static IP",
+                "content": "Set static IP 10.20.30.100 in Network → Global Configuration."
+              },
+              {
+                "title": "Create Admin User",
+                "content": "Create user 'huynguyen' with UID 1000 for proper file permissions."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "phase3",
+      "title": "ZFS Storage Configuration",
+      "badge": "Phase 3",
+      "icon": "3",
+      "meta": [
+        {"icon": "⏱️", "label": "Time", "value": "1 hour"},
+        {"icon": "📅", "label": "When", "value": "Day 2 (Morning)"}
+      ],
+      "content": {
+        "intro": "Create ZFS pools and datasets for optimal performance and organization.",
+        "sections": [
+          {
+            "title": "Storage Strategy",
+            "type": "info",
+            "content": "<strong>Two-Pool Design:</strong><br>• <strong>tank</strong> (HDD RAIDZ1): Bulk storage for media (36TB usable)<br>• <strong>apps-ssd</strong> (NVMe): Fast storage for app configs (~900GB usable)"
+          },
+          {
+            "title": "Configuration Steps",
+            "type": "steps",
+            "items": [
+              {
+                "title": "Create Pool 'tank'",
+                "content": "4× 12TB RAIDZ1 configuration with lz4 compression."
+              },
+              {
+                "title": "Create Pool 'apps-ssd'",
+                "content": "Single NVMe drive for application data and databases."
+              },
+              {
+                "title": "Create Datasets",
+                "content": "Organize data into media, photos, documents, downloads, backups, and app datasets."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "phase4",
+      "title": "10G Network Configuration",
+      "badge": "Phase 4",
+      "icon": "4",
+      "meta": [
+        {"icon": "⏱️", "label": "Time", "value": "2-3 hours"},
+        {"icon": "📅", "label": "When", "value": "Day 3"},
+        {"icon": "🛠️", "label": "Required", "value": "USW-Aggregation, 5× DAC cables, QLogic NIC"}
+      ],
+      "content": {
+        "intro": "Set up 10G networking with LACP bonding for 20 Gbps aggregate bandwidth.",
+        "sections": [
+          {
+            "title": "Network Setup",
+            "type": "steps",
+            "items": [
+              {
+                "title": "Install USW-Aggregation",
+                "content": "Rack mount switch, connect to UDM, adopt in UniFi controller."
+              },
+              {
+                "title": "Create Link Aggregation Groups",
+                "content": "LAG1 for TerraMaster (Ports 2-3), LAG2 for Proxmox (Ports 4-5)."
+              },
+              {
+                "title": "Configure TrueNAS LACP Bond",
+                "content": "Create bond0 with 2×10G interfaces, set MTU 9000."
+              },
+              {
+                "title": "Configure Proxmox LACP Bond",
+                "content": "Install QLogic NIC, configure bond0 with LACP."
+              },
+              {
+                "title": "Performance Test",
+                "content": "Run iperf3 test, verify 18-20 Gbps aggregate bandwidth."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "phase5",
+      "title": "VLAN & Firewall Configuration",
+      "badge": "Phase 5",
+      "icon": "5",
+      "meta": [
+        {"icon": "⏱️", "label": "Time", "value": "1 hour"},
+        {"icon": "📅", "label": "When", "value": "Day 3 (Afternoon)"}
+      ],
+      "content": {
+        "intro": "Configure VLANs and firewall rules for network segmentation and security.",
+        "sections": [
+          {
+            "title": "VLAN Structure",
+            "type": "table",
+            "data": {
+              "headers": ["VLAN", "Name", "Subnet", "Purpose"],
+              "rows": [
+                ["1", "Admin", "10.20.30.0/24", "Infrastructure management"],
+                ["30", "Home", "10.0.30.0/24", "Trusted devices"],
+                ["20", "IoT", "10.0.20.0/24", "Smart home devices"],
+                ["40", "Guest", "10.0.40.0/24", "Guest WiFi (isolated)"]
+              ]
+            }
+          },
+          {
+            "title": "Firewall Rules",
+            "type": "info",
+            "content": "Configure rules to allow Home → NAS services, block Home → Infrastructure, allow IoT backups, complete guest isolation."
+          }
+        ]
+      }
+    },
+    {
+      "id": "phase6",
+      "title": "Data Migration from QNAP",
+      "badge": "Phase 6",
+      "icon": "6",
+      "meta": [
+        {"icon": "⏱️", "label": "Time", "value": "8-12 hours"},
+        {"icon": "📅", "label": "When", "value": "Day 4"},
+        {"icon": "💾", "label": "Data", "value": "~24TB total"}
+      ],
+      "content": {
+        "intro": "Migrate all data from QNAP to TrueNAS using parallel rsync for maximum speed.",
+        "sections": [
+          {
+            "title": "Migration Strategy",
+            "type": "info",
+            "content": "Run 4 parallel rsync jobs (movies, TV, photos, documents) to maximize bandwidth utilization. Expected: ~150 MB/s per stream, ~10 hours total."
+          },
+          {
+            "title": "Migration Steps",
+            "type": "steps",
+            "items": [
+              {
+                "title": "Enable SSH on QNAP",
+                "content": "Enable SSH access for rsync transfers."
+              },
+              {
+                "title": "Set Up Screen Sessions",
+                "content": "Create 4 screen sessions for parallel transfers."
+              },
+              {
+                "title": "Start Parallel Transfers",
+                "content": "Launch rsync jobs for movies, TV shows, photos, and documents simultaneously."
+              },
+              {
+                "title": "Monitor Progress",
+                "content": "Check transfer speeds and completion status."
+              },
+              {
+                "title": "Verify Data",
+                "content": "Compare file counts and sizes, spot-check random files."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "phase7",
+      "title": "Performance Testing & Validation",
+      "badge": "Phase 7",
+      "icon": "7",
+      "meta": [
+        {"icon": "⏱️", "label": "Time", "value": "1 hour"},
+        {"icon": "📅", "label": "When", "value": "Day 5"}
+      ],
+      "content": {
+        "intro": "Validate system performance and ensure all components meet specifications.",
+        "sections": [
+          {
+            "title": "Success Criteria",
+            "type": "checklist",
+            "items": [
+              "Network (iperf3): 18-20 Gbps aggregate TrueNAS ↔ Proxmox",
+              "ZFS Read: ~1,200 MB/s (cache miss), ~12,000 MB/s (ARC cache hit)",
+              "ZFS Write: ~900 MB/s (RAIDZ1 disk-limited)",
+              "LACP Bonds: Both showing Aggregator ID 1, 2×10G active",
+              "ZFS ARC: 30-40GB allocated, 90%+ hit rate"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "phase8",
+      "title": "Monitoring & Maintenance Setup",
+      "badge": "Phase 8",
+      "icon": "8",
+      "meta": [
+        {"icon": "⏱️", "label": "Time", "value": "1 hour"},
+        {"icon": "📅", "label": "When", "value": "Day 5+"}
+      ],
+      "content": {
+        "intro": "Configure automated tasks and monitoring for long-term reliability.",
+        "sections": [
+          {
+            "title": "Automated Tasks",
+            "type": "info",
+            "content": "<strong>SMART Tests:</strong> Weekly long tests (Sunday 2 AM)<br><strong>ZFS Scrubs:</strong> Monthly integrity checks<br><strong>Snapshots:</strong> Photos hourly (30-day), Media daily (7-day), Documents 6-hourly (60-day)<br><strong>Email Alerts:</strong> Pool status, SMART failures, high temps"
+          },
+          {
+            "title": "Final Validation",
+            "type": "checklist",
+            "items": [
+              "Network: 18-20 Gbps verified ✓",
+              "ZFS ARC: 30-40GB auto-allocated, 90%+ hit rate",
+              "All 24TB data migrated and verified",
+              "SMART tests scheduled",
+              "ZFS scrubs scheduled",
+              "Automated snapshots configured",
+              "Email alerts configured and tested"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "diagrams",
+      "title": "Network Architecture Diagrams",
+      "badge": "Reference",
+      "icon": "📊",
+      "meta": [],
+      "content": {
+        "intro": "Visual reference for network topology and VLAN configuration.",
+        "sections": [
+          {
+            "title": "Network Topology",
+            "type": "info",
+            "content": "UDM Pro SE (10.20.30.1) → USW-Aggregation (10.20.30.2) → LAG1: TerraMaster (10.20.30.100) + LAG2: Proxmox (10.20.30.101)"
+          },
+          {
+            "title": "DAC Cable Assignment",
+            "type": "table",
+            "data": {
+              "headers": ["Cable", "From", "To", "Purpose"],
+              "rows": [
+                ["0.5m DAC", "UDM Port 10", "USW Port 1", "Uplink (10G)"],
+                ["1m DAC #1", "TerraMaster Port 1", "USW Port 2", "LAG1 Member 1"],
+                ["1m DAC #2", "TerraMaster Port 2", "USW Port 3", "LAG1 Member 2"],
+                ["1m DAC #3", "Dell QLogic Port A", "USW Port 4", "LAG2 Member 1"],
+                ["1m DAC #4", "Dell QLogic Port B", "USW Port 5", "LAG2 Member 2"]
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
