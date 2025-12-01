@@ -21,7 +21,7 @@ This guide walks you through upgrading from a basic homelab setup to a professio
 - 📱 **Responsive Design** - Works on desktop, tablet, and mobile
 - 💾 **State Persistence** - Your progress is automatically saved
 - ⌨️ **Keyboard Navigation** - Use arrow keys to navigate between phases
-- 📊 **Comprehensive Documentation** - 9 detailed phases from preparation to monitoring
+- 📊 **Comprehensive Documentation** - 12 detailed phases from preparation to decommissioning
 - 🎨 **Modern UI** - Clean, professional interface with smooth animations
 
 ## Quick Start
@@ -93,12 +93,15 @@ homelab-upgrade/
 1. **Phase 0: Preparation** - Download TrueNAS, prepare tools
 2. **Phase 1: Hardware Install** - Install RAM, NVMe, drives
 3. **Phase 2: TrueNAS Setup** - OS installation and config
-4. **Phase 3: ZFS Storage** - Create pools and datasets
-5. **Phase 4: 10G Network** - LACP bonding for 20 Gbps
-6. **Phase 5: VLAN Config** - Network segmentation
-7. **Phase 6: Data Migration** - Migrate 24TB from QNAP
-8. **Phase 7: Performance Testing** - Validate performance
-9. **Phase 8: Monitoring** - Automated tasks and alerts
+4. **Phase 2.5: Initial Network Connectivity** - Test 10G before LACP
+5. **Phase 3: ZFS Storage** - Create pools and datasets
+6. **Phase 4: 10G Network** - LACP bonding for 20 Gbps
+7. **Phase 5: VLAN Config** - Network segmentation
+8. **Phase 6: Data Migration** - Migrate 24TB from QNAP
+9. **Phase 6.5: Post-Migration Validation** - Verify data integrity
+10. **Phase 7: Performance Testing** - Validate performance
+11. **Phase 8: Monitoring** - Automated tasks and alerts
+12. **Phase 9: QNAP Decommissioning** - Safely retire old NAS
 
 ## Technology
 
