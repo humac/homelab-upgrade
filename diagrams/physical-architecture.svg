@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" style="max-width: 100%; height: auto;">
+  <defs>
+    <style>
+      .box { fill: #2d3748; stroke: #4a5568; stroke-width: 2; rx: 8; }
+      .server { fill: #2c5282; stroke: #3182ce; stroke-width: 2; rx: 8; }
+      .switch { fill: #2f855a; stroke: #48bb78; stroke-width: 2; rx: 8; }
+      .router { fill: #744210; stroke: #d69e2e; stroke-width: 2; rx: 8; }
+      .text-title { fill: #fff; font-family: 'Arial', sans-serif; font-size: 18px; font-weight: bold; }
+      .text-normal { fill: #e2e8f0; font-family: 'Arial', sans-serif; font-size: 14px; }
+      .text-small { fill: #cbd5e0; font-family: 'Arial', sans-serif; font-size: 12px; }
+      .connection { stroke: #48bb78; stroke-width: 3; fill: none; }
+      .connection-lacp { stroke: #ed8936; stroke-width: 4; fill: none; stroke-dasharray: 8,4; }
+      .label { fill: #48bb78; font-family: 'Arial', sans-serif; font-size: 12px; font-weight: bold; }
+      .label-lacp { fill: #ed8936; font-family: 'Arial', sans-serif; font-size: 12px; font-weight: bold; }
+    </style>
+  </defs>
+
+  <!-- Title -->
+  <text x="600" y="30" class="text-title" text-anchor="middle">Physical Infrastructure Architecture</text>
+  <text x="600" y="55" class="text-small" text-anchor="middle">10G Homelab Upgrade - Hardware Topology</text>
+
+  <!-- UDM Pro SE (Top) -->
+  <rect class="router" x="450" y="100" width="300" height="100"/>
+  <text x="600" y="130" class="text-title" text-anchor="middle">🌐 UDM Pro SE</text>
+  <text x="600" y="155" class="text-normal" text-anchor="middle">10.20.30.1</text>
+  <text x="600" y="175" class="text-small" text-anchor="middle">WAN Gateway + Management</text>
+
+  <!-- Connection: UDM to Switch -->
+  <line class="connection" x1="600" y1="200" x2="600" y2="280"/>
+  <text x="620" y="240" class="label">10G SFP+</text>
+  <text x="620" y="255" class="text-small">0.5m DAC</text>
+
+  <!-- USW-Aggregation (Middle) -->
+  <rect class="switch" x="400" y="280" width="400" height="120"/>
+  <text x="600" y="315" class="text-title" text-anchor="middle">⚡ UniFi USW-Aggregation</text>
+  <text x="600" y="340" class="text-normal" text-anchor="middle">10.20.30.2</text>
+  <text x="600" y="360" class="text-small" text-anchor="middle">8-Port 10G SFP+ Switch</text>
+  <text x="600" y="380" class="text-small" text-anchor="middle">Ports 2+3: LAG1 (TerraMaster) | Ports 4+5: LAG2 (Proxmox)</text>
+
+  <!-- Connection: Switch to TerraMaster (LACP) -->
+  <line class="connection-lacp" x1="500" y1="400" x2="350" y2="500"/>
+  <line class="connection-lacp" x1="520" y1="400" x2="370" y2="500"/>
+  <text x="380" y="445" class="label-lacp">LACP Bond</text>
+  <text x="380" y="460" class="text-small">2x 10G = 20Gbps</text>
+  <text x="380" y="475" class="text-small">1m DAC x2</text>
+
+  <!-- Connection: Switch to Proxmox (LACP) -->
+  <line class="connection-lacp" x1="680" y1="400" x2="830" y2="500"/>
+  <line class="connection-lacp" x1="700" y1="400" x2="850" y2="500"/>
+  <text x="750" y="445" class="label-lacp">LACP Bond</text>
+  <text x="750" y="460" class="text-small">2x 10G = 20Gbps</text>
+  <text x="750" y="475" class="text-small">1m DAC x2</text>
+
+  <!-- TerraMaster F6-424 Max (Bottom Left) -->
+  <rect class="server" x="150" y="500" width="350" height="250"/>
+  <text x="325" y="535" class="text-title" text-anchor="middle">🚀 TerraMaster F6-424 Max</text>
+  <text x="325" y="560" class="text-normal" text-anchor="middle">10.20.30.100 (Primary NAS)</text>
+
+  <!-- TerraMaster Specs -->
+  <text x="170" y="590" class="text-small">CPU: Intel i5-1235U (10C/12T, 12MB cache)</text>
+  <text x="170" y="610" class="text-small">RAM: 64GB DDR5-4800 (2x 32GB Kingston)</text>
+  <text x="170" y="630" class="text-small">Storage: 6x 6TB WD Red Plus (36TB usable RAIDZ1)</text>
+  <text x="170" y="650" class="text-small">Cache: 2x 1TB Crucial P3 Plus NVMe (L2ARC)</text>
+  <text x="170" y="670" class="text-small">Network: 2x 10G SFP+ (LACP bond)</text>
+  <text x="170" y="690" class="text-small">OS: TrueNAS SCALE 24.10 (Electric Eel)</text>
+  <text x="170" y="710" class="text-small">Apps: Nextcloud, Immich, Jellyfin, etc.</text>
+  <text x="170" y="730" class="text-small" font-weight="bold" fill="#48bb78">✓ Primary Production System</text>
+
+  <!-- Dell R730xd (Bottom Right) -->
+  <rect class="server" x="700" y="500" width="350" height="250"/>
+  <text x="875" y="535" class="text-title" text-anchor="middle">🖥️ Dell R730xd</text>
+  <text x="875" y="560" class="text-normal" text-anchor="middle">10.20.30.101 (Proxmox Host)</text>
+
+  <!-- Dell Specs -->
+  <text x="720" y="590" class="text-small">CPU: 2x Xeon (details from existing setup)</text>
+  <text x="720" y="610" class="text-small">RAM: Existing configuration</text>
+  <text x="720" y="630" class="text-small">Storage: Local RAID for VMs</text>
+  <text x="720" y="650" class="text-small">Network: QLogic 2x 10G SFP+ (LACP bond)</text>
+  <text x="720" y="670" class="text-small">OS: Proxmox VE</text>
+  <text x="720" y="690" class="text-small">Role: Compute/VM host</text>
+  <text x="720" y="710" class="text-small">NFS Mount: TerraMaster bulk storage</text>
+  <text x="720" y="730" class="text-small" font-weight="bold" fill="#48bb78">✓ Existing Infrastructure</text>
+
+  <!-- Legend -->
+  <rect class="box" x="50" y="100" width="250" height="180"/>
+  <text x="175" y="125" class="text-title" text-anchor="middle">Legend</text>
+
+  <line class="connection" x1="70" y1="145" x2="130" y2="145"/>
+  <text x="140" y="150" class="text-small">Single 10G Connection</text>
+
+  <line class="connection-lacp" x1="70" y1="165" x2="130" y2="165"/>
+  <text x="140" y="170" class="text-small">LACP Bonded (2x 10G)</text>
+
+  <rect class="router" x="70" y="180" width="30" height="20"/>
+  <text x="110" y="193" class="text-small">Router/Gateway</text>
+
+  <rect class="switch" x="70" y="210" width="30" height="20"/>
+  <text x="110" y="223" class="text-small">Network Switch</text>
+
+  <rect class="server" x="70" y="240" width="30" height="20"/>
+  <text x="110" y="253" class="text-small">Server/NAS</text>
+
+  <!-- Cost Summary -->
+  <rect class="box" x="900" y="100" width="250" height="120"/>
+  <text x="1025" y="125" class="text-title" text-anchor="middle">Project Cost</text>
+  <text x="1025" y="150" class="text-normal" text-anchor="middle" fill="#48bb78">Net: $2,459 CAD</text>
+  <text x="920" y="175" class="text-small">• RAM: $235 (64GB DDR5)</text>
+  <text x="920" y="195" class="text-small">• NVMe: $200 (2x 1TB)</text>
+  <text x="920" y="215" class="text-small">• Networking: $2,024</text>
+</svg>
