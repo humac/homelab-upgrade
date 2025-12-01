@@ -45,6 +45,8 @@ export function formatSection(section) {
             return `<div class="success-box">${section.content}</div>`;
         case 'danger':
             return `<div class="danger-box">${section.content}</div>`;
+        case 'html':
+            return section.content;
         default:
             return `<p>${section.content || ''}</p>`;
     }

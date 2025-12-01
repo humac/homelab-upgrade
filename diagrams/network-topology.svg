@@ -1,0 +1,181 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 900" style="max-width: 100%; height: auto;">
+  <defs>
+    <style>
+      .vlan-admin { fill: #2d3748; stroke: #4299e1; stroke-width: 3; rx: 12; }
+      .vlan-iot { fill: #2d3748; stroke: #ed8936; stroke-width: 3; rx: 12; }
+      .vlan-home { fill: #2d3748; stroke: #48bb78; stroke-width: 3; rx: 12; }
+      .vlan-guest { fill: #2d3748; stroke: #9f7aea; stroke-width: 3; rx: 12; }
+      .core-box { fill: #1a202c; stroke: #718096; stroke-width: 2; rx: 8; }
+      .text-title { fill: #fff; font-family: 'Arial', sans-serif; font-size: 20px; font-weight: bold; }
+      .text-vlan { fill: #fff; font-family: 'Arial', sans-serif; font-size: 16px; font-weight: bold; }
+      .text-normal { fill: #e2e8f0; font-family: 'Arial', sans-serif; font-size: 14px; }
+      .text-small { fill: #cbd5e0; font-family: 'Arial', sans-serif; font-size: 12px; }
+      .connection { stroke: #718096; stroke-width: 2; fill: none; }
+      .trunk { stroke: #4299e1; stroke-width: 4; fill: none; stroke-dasharray: 10,5; }
+      .device { fill: #4a5568; stroke: #718096; stroke-width: 2; rx: 6; }
+      .badge-admin { fill: #4299e1; }
+      .badge-iot { fill: #ed8936; }
+      .badge-home { fill: #48bb78; }
+      .badge-guest { fill: #9f7aea; }
+    </style>
+  </defs>
+
+  <!-- Title -->
+  <text x="700" y="35" class="text-title" text-anchor="middle">Network Topology &amp; VLAN Architecture</text>
+  <text x="700" y="60" class="text-small" text-anchor="middle">Segmented 10G Network with LACP Bonding</text>
+
+  <!-- Core Network Infrastructure -->
+  <rect class="core-box" x="500" y="100" width="400" height="180"/>
+  <text x="700" y="130" class="text-title" text-anchor="middle">Core Network Infrastructure</text>
+
+  <!-- UDM Pro SE -->
+  <rect class="device" x="530" y="150" width="150" height="60"/>
+  <text x="605" y="175" class="text-normal" text-anchor="middle">🌐 UDM Pro SE</text>
+  <text x="605" y="195" class="text-small" text-anchor="middle">10.20.30.1/24</text>
+
+  <!-- USW-Aggregation -->
+  <rect class="device" x="720" y="150" width="150" height="60"/>
+  <text x="795" y="175" class="text-normal" text-anchor="middle">⚡ USW-Agg</text>
+  <text x="795" y="195" class="text-small" text-anchor="middle">10.20.30.2/24</text>
+
+  <!-- Trunk connection -->
+  <line class="trunk" x1="680" y1="180" x2="720" y2="180"/>
+  <text x="700" y="175" class="text-small" text-anchor="middle" fill="#4299e1">Trunk</text>
+  <text x="700" y="225" class="text-small" text-anchor="middle">All VLANs</text>
+
+  <!-- VLAN 1 - Admin/Management -->
+  <rect class="vlan-admin" x="50" y="320" width="300" height="220"/>
+  <text x="200" y="355" class="text-vlan" text-anchor="middle">🔐 VLAN 1 - Admin/Management</text>
+  <text x="200" y="380" class="text-normal" text-anchor="middle">10.20.30.0/24</text>
+
+  <rect class="device" x="70" y="400" width="120" height="40"/>
+  <text x="130" y="425" class="text-small" text-anchor="middle">TerraMaster</text>
+  <text x="130" y="435" class="text-small" text-anchor="middle" fill="#4299e1">.100</text>
+
+  <rect class="device" x="210" y="400" width="120" height="40"/>
+  <text x="270" y="425" class="text-small" text-anchor="middle">Proxmox</text>
+  <text x="270" y="435" class="text-small" text-anchor="middle" fill="#4299e1">.101</text>
+
+  <rect class="device" x="70" y="460" width="120" height="40"/>
+  <text x="130" y="485" class="text-small" text-anchor="middle">UDM</text>
+  <text x="130" y="495" class="text-small" text-anchor="middle" fill="#4299e1">.1</text>
+
+  <rect class="device" x="210" y="460" width="120" height="40"/>
+  <text x="270" y="485" class="text-small" text-anchor="middle">USW</text>
+  <text x="270" y="495" class="text-small" text-anchor="middle" fill="#4299e1">.2</text>
+
+  <text x="200" y="525" class="text-small" text-anchor="middle">Admin access, SSH, Web UI</text>
+
+  <!-- VLAN 20 - IoT -->
+  <rect class="vlan-iot" x="400" y="320" width="300" height="220"/>
+  <text x="550" y="355" class="text-vlan" text-anchor="middle">🏠 VLAN 20 - IoT Devices</text>
+  <text x="550" y="380" class="text-normal" text-anchor="middle">10.20.20.0/24</text>
+
+  <rect class="device" x="420" y="400" width="120" height="40"/>
+  <text x="480" y="420" class="text-small" text-anchor="middle">Smart Home</text>
+  <text x="480" y="432" class="text-small" text-anchor="middle">Hub</text>
+
+  <rect class="device" x="560" y="400" width="120" height="40"/>
+  <text x="620" y="420" class="text-small" text-anchor="middle">Security</text>
+  <text x="620" y="432" class="text-small" text-anchor="middle">Cameras</text>
+
+  <rect class="device" x="420" y="460" width="120" height="40"/>
+  <text x="480" y="485" class="text-small" text-anchor="middle">ESP Devices</text>
+
+  <rect class="device" x="560" y="460" width="120" height="40"/>
+  <text x="620" y="485" class="text-small" text-anchor="middle">Sensors</text>
+
+  <text x="550" y="525" class="text-small" text-anchor="middle">Isolated, Internet only</text>
+
+  <!-- VLAN 30 - Home -->
+  <rect class="vlan-home" x="750" y="320" width="300" height="220"/>
+  <text x="900" y="355" class="text-vlan" text-anchor="middle">🏡 VLAN 30 - Home Network</text>
+  <text x="900" y="380" class="text-normal" text-anchor="middle">10.20.40.0/24</text>
+
+  <rect class="device" x="770" y="400" width="120" height="40"/>
+  <text x="830" y="420" class="text-small" text-anchor="middle">Family</text>
+  <text x="830" y="432" class="text-small" text-anchor="middle">Devices</text>
+
+  <rect class="device" x="910" y="400" width="120" height="40"/>
+  <text x="970" y="420" class="text-small" text-anchor="middle">Media</text>
+  <text x="970" y="432" class="text-small" text-anchor="middle">Players</text>
+
+  <rect class="device" x="770" y="460" width="120" height="40"/>
+  <text x="830" y="485" class="text-small" text-anchor="middle">Workstations</text>
+
+  <rect class="device" x="910" y="460" width="120" height="40"/>
+  <text x="970" y="485" class="text-small" text-anchor="middle">Tablets</text>
+
+  <text x="900" y="525" class="text-small" text-anchor="middle">Full access to services</text>
+
+  <!-- VLAN 40 - Guest -->
+  <rect class="vlan-guest" x="1100" y="320" width="250" height="220"/>
+  <text x="1225" y="355" class="text-vlan" text-anchor="middle">👥 VLAN 40 - Guest</text>
+  <text x="1225" y="380" class="text-normal" text-anchor="middle">10.20.50.0/24</text>
+
+  <rect class="device" x="1120" y="420" width="190" height="40"/>
+  <text x="1215" y="445" class="text-small" text-anchor="middle">Guest WiFi Clients</text>
+
+  <text x="1225" y="485" class="text-small" text-anchor="middle">Internet only</text>
+  <text x="1225" y="500" class="text-small" text-anchor="middle">No LAN access</text>
+  <text x="1225" y="515" class="text-small" text-anchor="middle">Auto-expires 24h</text>
+
+  <!-- Connections from core to VLANs -->
+  <line class="connection" x1="605" y1="210" x2="200" y2="320"/>
+  <line class="connection" x1="700" y1="280" x2="550" y2="320"/>
+  <line class="connection" x1="795" y1="210" x2="900" y2="320"/>
+  <line class="connection" x1="850" y1="280" x2="1225" y2="320"/>
+
+  <!-- TerraMaster Services Box -->
+  <rect class="core-box" x="150" y="600" width="550" height="250"/>
+  <text x="425" y="635" class="text-title" text-anchor="middle">TerraMaster Services (10.20.30.100)</text>
+
+  <!-- Service rows -->
+  <text x="170" y="665" class="text-normal">🔐 TrueNAS Web UI:</text>
+  <text x="170" y="685" class="text-small">   • Management: VLAN 1 only (https://10.20.30.100)</text>
+
+  <text x="170" y="710" class="text-normal">☁️ Nextcloud:</text>
+  <text x="170" y="730" class="text-small">   • Access: VLAN 1 (admin) + VLAN 30 (home users)</text>
+  <text x="170" y="745" class="text-small">   • Port: 443 (HTTPS)</text>
+
+  <text x="170" y="770" class="text-normal">📸 Immich (Photo Management):</text>
+  <text x="170" y="790" class="text-small">   • Access: VLAN 1 + VLAN 30</text>
+  <text x="170" y="805" class="text-small">   • Port: 2283</text>
+
+  <text x="170" y="830" class="text-normal">📁 SMB/NFS Shares:</text>
+  <text x="170" y="850" class="text-small">   • Access: VLAN 1 (admin) + VLAN 30 (read-only/user-specific)</text>
+
+  <!-- Network Features Box -->
+  <rect class="core-box" x="750" y="600" width="600" height="250"/>
+  <text x="1050" y="635" class="text-title" text-anchor="middle">Network Features</text>
+
+  <text x="770" y="670" class="text-normal">⚡ LACP Bonding:</text>
+  <text x="770" y="690" class="text-small">   • TerraMaster: 2x 10G = 20 Gbps aggregate (802.3ad)</text>
+  <text x="770" y="705" class="text-small">   • Proxmox: 2x 10G = 20 Gbps aggregate (802.3ad)</text>
+  <text x="770" y="720" class="text-small">   • Load balancing: Layer 3+4 hash</text>
+
+  <text x="770" y="750" class="text-normal">🔒 Firewall Rules:</text>
+  <text x="770" y="770" class="text-small">   • VLAN 20 → Internet only (no LAN access)</text>
+  <text x="770" y="785" class="text-small">   • VLAN 40 → Internet only (no LAN access)</text>
+  <text x="770" y="800" class="text-small">   • VLAN 30 → Can access VLAN 1 services</text>
+  <text x="770" y="815" class="text-small">   • VLAN 1 → Full network access</text>
+
+  <text x="770" y="845" class="text-normal">🌐 DNS:</text>
+  <text x="770" y="865" class="text-small">   • Pi-hole on VLAN 1 for ad-blocking + local DNS</text>
+
+  <!-- Legend -->
+  <rect class="core-box" x="50" y="100" width="200" height="150"/>
+  <text x="150" y="125" class="text-title" text-anchor="middle">VLAN Colors</text>
+
+  <circle class="badge-admin" cx="70" cy="145" r="8"/>
+  <text x="85" y="150" class="text-small">VLAN 1 - Admin</text>
+
+  <circle class="badge-iot" cx="70" cy="170" r="8"/>
+  <text x="85" y="175" class="text-small">VLAN 20 - IoT</text>
+
+  <circle class="badge-home" cx="70" cy="195" r="8"/>
+  <text x="85" y="200" class="text-small">VLAN 30 - Home</text>
+
+  <circle class="badge-guest" cx="70" cy="220" r="8"/>
+  <text x="85" y="225" class="text-small">VLAN 40 - Guest</text>
+</svg>

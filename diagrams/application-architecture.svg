@@ -1,0 +1,199 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1100" style="max-width: 100%; height: auto;">
+  <defs>
+    <style>
+      .layer-hw { fill: #1a202c; stroke: #2d3748; stroke-width: 2; rx: 10; }
+      .layer-os { fill: #2d3748; stroke: #4a5568; stroke-width: 2; rx: 10; }
+      .layer-storage { fill: #2c5282; stroke: #3182ce; stroke-width: 2; rx: 8; }
+      .layer-apps { fill: #2f855a; stroke: #48bb78; stroke-width: 2; rx: 8; }
+      .layer-users { fill: #744210; stroke: #d69e2e; stroke-width: 2; rx: 8; }
+      .app-box { fill: #38a169; stroke: #48bb78; stroke-width: 2; rx: 6; }
+      .dataset-box { fill: #3182ce; stroke: #63b3ed; stroke-width: 1.5; rx: 4; }
+      .user-box { fill: #d69e2e; stroke: #f6ad55; stroke-width: 1.5; rx: 4; }
+      .text-title { fill: #fff; font-family: 'Arial', sans-serif; font-size: 20px; font-weight: bold; }
+      .text-layer { fill: #fff; font-family: 'Arial', sans-serif; font-size: 18px; font-weight: bold; }
+      .text-normal { fill: #e2e8f0; font-family: 'Arial', sans-serif; font-size: 14px; }
+      .text-small { fill: #cbd5e0; font-family: 'Arial', sans-serif; font-size: 12px; }
+      .text-tiny { fill: #a0aec0; font-family: 'Arial', sans-serif; font-size: 11px; }
+      .arrow { stroke: #718096; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .note-box { fill: #2d3748; stroke: #4a5568; stroke-width: 1; rx: 4; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#718096" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="700" y="35" class="text-title" text-anchor="middle">Application &amp; Service Architecture</text>
+  <text x="700" y="60" class="text-small" text-anchor="middle">TrueNAS SCALE with Integrated User Management</text>
+
+  <!-- Layer 1: Hardware -->
+  <rect class="layer-hw" x="50" y="100" width="1300" height="100"/>
+  <text x="100" y="130" class="text-layer">Layer 1: Hardware</text>
+  <text x="100" y="155" class="text-normal">TerraMaster F6-424 Max: i5-1235U | 64GB DDR5 | 6x 6TB HDD | 2x 1TB NVMe | 2x 10G SFP+</text>
+  <text x="100" y="180" class="text-small">Physical layer providing compute, memory, storage, and network resources</text>
+
+  <!-- Layer 2: Operating System -->
+  <rect class="layer-os" x="50" y="220" width="1300" height="100"/>
+  <text x="100" y="250" class="text-layer">Layer 2: Operating System</text>
+  <text x="100" y="275" class="text-normal">TrueNAS SCALE 24.10 (Electric Eel) - Debian-based, ZFS-native</text>
+  <text x="100" y="295" class="text-small">Kubernetes integration | systemd | Docker support | Native ZFS management</text>
+
+  <!-- Layer 3: Storage & Datasets -->
+  <rect class="layer-storage" x="50" y="340" width="1300" height="180"/>
+  <text x="100" y="370" class="text-layer">Layer 3: Storage Layer (ZFS)</text>
+
+  <!-- ZFS Pool -->
+  <rect class="dataset-box" x="70" y="390" width="200" height="110"/>
+  <text x="170" y="415" class="text-normal" text-anchor="middle" font-weight="bold">💾 main-pool</text>
+  <text x="170" y="435" class="text-small" text-anchor="middle">RAIDZ1 (6x 6TB)</text>
+  <text x="170" y="450" class="text-small" text-anchor="middle">36TB usable</text>
+  <text x="170" y="465" class="text-small" text-anchor="middle">+ 2x 1TB NVMe</text>
+  <text x="170" y="480" class="text-small" text-anchor="middle">(L2ARC cache)</text>
+
+  <!-- Datasets -->
+  <rect class="dataset-box" x="300" y="390" width="150" height="50"/>
+  <text x="375" y="420" class="text-small" text-anchor="middle" font-weight="bold">📁 /nextcloud</text>
+
+  <rect class="dataset-box" x="300" y="450" width="150" height="50"/>
+  <text x="375" y="480" class="text-small" text-anchor="middle" font-weight="bold">📁 /immich</text>
+
+  <rect class="dataset-box" x="480" y="390" width="150" height="50"/>
+  <text x="555" y="420" class="text-small" text-anchor="middle" font-weight="bold">📁 /media</text>
+
+  <rect class="dataset-box" x="480" y="450" width="150" height="50"/>
+  <text x="555" y="480" class="text-small" text-anchor="middle" font-weight="bold">📁 /backups</text>
+
+  <rect class="dataset-box" x="660" y="390" width="150" height="50"/>
+  <text x="735" y="420" class="text-small" text-anchor="middle" font-weight="bold">📁 /documents</text>
+
+  <rect class="dataset-box" x="660" y="450" width="150" height="50"/>
+  <text x="735" y="480" class="text-small" text-anchor="middle" font-weight="bold">📁 /timemachine</text>
+
+  <rect class="dataset-box" x="840" y="390" width="150" height="50"/>
+  <text x="915" y="420" class="text-small" text-anchor="middle" font-weight="bold">📁 /vms</text>
+
+  <rect class="dataset-box" x="840" y="450" width="150" height="50"/>
+  <text x="915" y="480" class="text-small" text-anchor="middle" font-weight="bold">📁 /apps</text>
+
+  <!-- ZFS Features -->
+  <rect class="note-box" x="1020" y="390" width="310" height="110"/>
+  <text x="1175" y="410" class="text-small" text-anchor="middle" font-weight="bold">ZFS Features Active:</text>
+  <text x="1040" y="430" class="text-tiny">✓ Snapshots (hourly/daily)</text>
+  <text x="1040" y="445" class="text-tiny">✓ Compression (LZ4)</text>
+  <text x="1040" y="460" class="text-tiny">✓ Deduplication (off for home use)</text>
+  <text x="1040" y="475" class="text-tiny">✓ Scrub schedule (monthly)</text>
+  <text x="1040" y="490" class="text-tiny">✓ SMART monitoring</text>
+
+  <!-- Layer 4: Applications & Services -->
+  <rect class="layer-apps" x="50" y="540" width="1300" height="280"/>
+  <text x="100" y="570" class="text-layer">Layer 4: Applications &amp; Services (Docker/K8s)</text>
+
+  <!-- Row 1: Core Services -->
+  <rect class="app-box" x="70" y="590" width="200" height="80"/>
+  <text x="170" y="615" class="text-normal" text-anchor="middle" font-weight="bold">☁️ Nextcloud</text>
+  <text x="170" y="635" class="text-small" text-anchor="middle">File sync + sharing</text>
+  <text x="170" y="650" class="text-small" text-anchor="middle">Port: 443 (HTTPS)</text>
+  <text x="170" y="665" class="text-tiny" text-anchor="middle">Internal user DB</text>
+
+  <rect class="app-box" x="290" y="590" width="200" height="80"/>
+  <text x="390" y="615" class="text-normal" text-anchor="middle" font-weight="bold">📸 Immich</text>
+  <text x="390" y="635" class="text-small" text-anchor="middle">Photo management</text>
+  <text x="390" y="650" class="text-small" text-anchor="middle">Port: 2283</text>
+  <text x="390" y="665" class="text-tiny" text-anchor="middle">Internal user DB</text>
+
+  <rect class="app-box" x="510" y="590" width="200" height="80"/>
+  <text x="610" y="615" class="text-normal" text-anchor="middle" font-weight="bold">🎬 Jellyfin</text>
+  <text x="610" y="635" class="text-small" text-anchor="middle">Media server</text>
+  <text x="610" y="650" class="text-small" text-anchor="middle">Port: 8096</text>
+  <text x="610" y="665" class="text-tiny" text-anchor="middle">Internal user DB</text>
+
+  <rect class="app-box" x="730" y="590" width="200" height="80"/>
+  <text x="830" y="615" class="text-normal" text-anchor="middle" font-weight="bold">🏠 Home Assistant</text>
+  <text x="830" y="635" class="text-small" text-anchor="middle">Smart home hub</text>
+  <text x="830" y="650" class="text-small" text-anchor="middle">Port: 8123</text>
+  <text x="830" y="665" class="text-tiny" text-anchor="middle">Internal user DB</text>
+
+  <!-- Row 2: Supporting Services -->
+  <rect class="app-box" x="70" y="690" width="200" height="80"/>
+  <text x="170" y="715" class="text-normal" text-anchor="middle" font-weight="bold">🛡️ Vaultwarden</text>
+  <text x="170" y="735" class="text-small" text-anchor="middle">Password manager</text>
+  <text x="170" y="750" class="text-small" text-anchor="middle">Port: 8000</text>
+  <text x="170" y="765" class="text-tiny" text-anchor="middle">Internal user DB</text>
+
+  <rect class="app-box" x="290" y="690" width="200" height="80"/>
+  <text x="390" y="715" class="text-normal" text-anchor="middle" font-weight="bold">🌐 Nginx Proxy</text>
+  <text x="390" y="735" class="text-small" text-anchor="middle">Reverse proxy</text>
+  <text x="390" y="750" class="text-small" text-anchor="middle">Port: 80/443</text>
+  <text x="390" y="765" class="text-tiny" text-anchor="middle">SSL termination</text>
+
+  <rect class="app-box" x="510" y="690" width="200" height="80"/>
+  <text x="610" y="715" class="text-normal" text-anchor="middle" font-weight="bold">🕳️ Pi-hole</text>
+  <text x="610" y="735" class="text-small" text-anchor="middle">DNS + ad blocking</text>
+  <text x="610" y="750" class="text-small" text-anchor="middle">Port: 53/80</text>
+  <text x="610" y="765" class="text-tiny" text-anchor="middle">Network-wide</text>
+
+  <rect class="app-box" x="730" y="690" width="200" height="80"/>
+  <text x="830" y="715" class="text-normal" text-anchor="middle" font-weight="bold">📊 Grafana</text>
+  <text x="830" y="735" class="text-small" text-anchor="middle">Monitoring</text>
+  <text x="830" y="750" class="text-small" text-anchor="middle">Port: 3000</text>
+  <text x="830" y="765" class="text-tiny" text-anchor="middle">+ Prometheus</text>
+
+  <!-- Service Notes -->
+  <rect class="note-box" x="960" y="590" width="370" height="180"/>
+  <text x="1145" y="610" class="text-small" text-anchor="middle" font-weight="bold">Service Architecture Notes:</text>
+  <text x="980" y="635" class="text-tiny">• All apps run as Docker containers</text>
+  <text x="980" y="655" class="text-tiny">• Each app manages its own users internally</text>
+  <text x="980" y="675" class="text-tiny">• No OS-level user accounts per family member</text>
+  <text x="980" y="695" class="text-tiny">• Apps access storage via bind mounts</text>
+  <text x="980" y="715" class="text-tiny">• All data owned by service account (UID 1000)</text>
+  <text x="980" y="735" class="text-tiny">• Nginx handles SSL/TLS + routing</text>
+  <text x="980" y="755" class="text-tiny">• Future: Consider Authentik for SSO</text>
+
+  <!-- Layer 5: User Management -->
+  <rect class="layer-users" x="50" y="840" width="1300" height="220"/>
+  <text x="100" y="870" class="text-layer">Layer 5: User Management Strategy</text>
+
+  <!-- OS-Level Users -->
+  <rect class="user-box" x="70" y="895" width="350" height="140"/>
+  <text x="245" y="920" class="text-normal" text-anchor="middle" font-weight="bold">🔐 OS-Level Users (TrueNAS)</text>
+  <text x="90" y="945" class="text-small">admin (UID 1000)</text>
+  <text x="90" y="960" class="text-tiny">   • TrueNAS administration</text>
+  <text x="90" y="975" class="text-tiny">   • SSH access</text>
+  <text x="90" y="990" class="text-tiny">   • Service deployments</text>
+
+  <text x="90" y="1010" class="text-small">Optional: SMB/NFS users</text>
+  <text x="90" y="1025" class="text-tiny">   • Only if direct share access needed</text>
+
+  <!-- App-Level Users -->
+  <rect class="user-box" x="450" y="895" width="480" height="140"/>
+  <text x="690" y="920" class="text-normal" text-anchor="middle" font-weight="bold">👥 Application-Level Users</text>
+
+  <text x="470" y="950" class="text-small" font-weight="bold">Nextcloud Users:</text>
+  <text x="470" y="965" class="text-tiny">mom, dad, kid1, kid2</text>
+
+  <text x="470" y="985" class="text-small" font-weight="bold">Immich Users:</text>
+  <text x="470" y="1000" class="text-tiny">mom, dad, kid1, kid2</text>
+
+  <text x="690" y="950" class="text-small" font-weight="bold">Jellyfin Users:</text>
+  <text x="690" y="965" class="text-tiny">family (shared), kid1, kid2</text>
+
+  <text x="690" y="985" class="text-small" font-weight="bold">Home Assistant:</text>
+  <text x="690" y="1000" class="text-tiny">admin, mom, dad</text>
+
+  <text x="470" y="1025" class="text-tiny" fill="#48bb78">✓ Each app manages authentication independently</text>
+
+  <!-- Recommendation -->
+  <rect class="note-box" x="960" y="895" width="370" height="140"/>
+  <text x="1145" y="920" class="text-normal" text-anchor="middle" font-weight="bold">✅ Recommended Approach</text>
+  <text x="980" y="950" class="text-tiny">1. Create ONE admin OS user (UID 1000)</text>
+  <text x="980" y="970" class="text-tiny">2. Deploy apps as containers</text>
+  <text x="980" y="990" class="text-tiny">3. Create users in each app's UI</text>
+  <text x="980" y="1010" class="text-tiny">4. Let apps handle authentication</text>
+  <text x="980" y="1025" class="text-tiny" fill="#48bb78" font-weight="bold">Simple + flexible + maintainable</text>
+
+  <!-- Data Flow Arrows -->
+  <path class="arrow" d="M 700 200 L 700 220"/>
+  <path class="arrow" d="M 700 320 L 700 340"/>
+  <path class="arrow" d="M 700 520 L 700 540"/>
+  <path class="arrow" d="M 700 820 L 700 840"/>
+</svg>
