@@ -716,33 +716,168 @@
         "intro": "Set up 10G networking with LACP bonding for 20 Gbps aggregate bandwidth.",
         "sections": [
           {
-            "title": "Network Setup",
+            "title": "⚠️ Baseline 10G Test BEFORE LACP",
+            "type": "warning",
+            "content": "Before configuring LACP bonds, test single 10G connections first to isolate issues. Connect ONE cable, verify 9-10 Gbps, then proceed to bonding."
+          },
+          {
+            "title": "Step 1: Install USW-Aggregation",
             "type": "steps",
             "items": [
               {
-                "title": "Baseline 10G Test (BEFORE LACP)",
-                "content": "Connect SINGLE cable TerraMaster Port 1 → USW Port 2. Verify 10G link speed. Run iperf3 single stream test (~9.4 Gbps expected). This confirms cabling/NICs work before LACP complexity."
+                "title": "Physical Installation",
+                "content": "Rack-mount USW-Aggregation (1U space) → Connect power"
               },
               {
-                "title": "Install USW-Aggregation",
-                "content": "Rack mount switch, connect to UDM, adopt in UniFi controller."
+                "title": "Uplink Connection",
+                "content": "Connect 0.5m DAC: <strong>UDM Port 10 → USW Port 1</strong>"
               },
               {
-                "title": "Create Link Aggregation Groups",
-                "content": "LAG1 for TerraMaster (Ports 2-3), LAG2 for Proxmox (Ports 4-5)."
+                "title": "Boot Wait",
+                "content": "Wait 2 minutes for switch to boot"
               },
               {
-                "title": "Configure TrueNAS LACP Bond",
-                "content": "Create bond0 with 2×10G interfaces, set MTU 9000."
+                "title": "Adopt in UniFi",
+                "content": "Open UniFi Network Controller (UDM web interface) → Navigate to: <strong>Network → Devices</strong> → USW-Aggregation appears as \"Pending\" → Click <strong>Adopt</strong>"
               },
               {
-                "title": "Configure Proxmox LACP Bond",
-                "content": "Install QLogic NIC, configure bond0 with LACP."
-              },
-              {
-                "title": "Performance Test",
-                "content": "Run iperf3 test, verify 18-20 Gbps aggregate bandwidth."
+                "title": "Firmware Update",
+                "content": "Firmware update may occur (~5 min) - wait for completion"
               }
+            ]
+          },
+          {
+            "title": "✓ Verification",
+            "type": "success",
+            "content": "USW-Aggregation shows \"Connected\" status with green indicator."
+          },
+          {
+            "title": "Step 2: Configure USW Management IP",
+            "type": "code",
+            "language": "text",
+            "content": "Network → Devices → USW-Aggregation → Settings\n\nNetwork: Admin (VLAN 1)\nIP Configuration: Static\nIP Address: 10.20.30.2\nNetmask: 255.255.255.0\nGateway: 10.20.30.1\n\nApply Changes"
+          },
+          {
+            "title": "Step 3: Create Link Aggregation Groups",
+            "type": "info",
+            "content": "<strong>LAG1:</strong> TerraMaster (Ports 2-3)<br><strong>LAG2:</strong> Dell Proxmox (Ports 4-5)"
+          },
+          {
+            "title": "LAG1 Configuration",
+            "type": "code",
+            "language": "text",
+            "content": "Network → Devices → USW-Aggregation → Ports\n\nSelect: Ports 2 AND 3 (hold Ctrl/Cmd)\nClick: Port Settings (gear icon)\n\nOperation: Aggregate Ports\nAggregate Name: LAG1-TerraMaster\nLAG Protocol: LACP\nPort Profile: All (for now, will refine in Phase 5)\n\nApply\n\nResult: Ports 2-3 now show as \"LAG1\" with link icon"
+          },
+          {
+            "title": "LAG2 Configuration",
+            "type": "code",
+            "language": "text",
+            "content": "Select: Ports 4 AND 5\nClick: Port Settings\n\nOperation: Aggregate Ports\nAggregate Name: LAG2-Proxmox\nLAG Protocol: LACP\nPort Profile: All\n\nApply\n\nResult: Ports 4-5 now show as \"LAG2\""
+          },
+          {
+            "title": "Step 4: TrueNAS - Configure 2×10G LACP Bond",
+            "type": "warning",
+            "content": "<strong>Before starting:</strong> Note current IP (10.20.30.100). Have monitor/keyboard ready in case network drops."
+          },
+          {
+            "title": "Create bond0 Interface",
+            "type": "code",
+            "language": "text",
+            "content": "TrueNAS: Network → Interfaces → Add\n\nInterface Type: Link Aggregation\n\nName: bond0\nDescription: 10G LACP to USW\n\nLink Aggregation Protocol: LACP\nLACP Mode: Active\nLACP Rate: Fast (1 second)\nTransmit Hash Policy: layer3+4\n\nMember Interfaces:\n☑ enp1s0 (10G Port 1)\n☑ enp2s0 (10G Port 2)\n\nMTU: 9000 (jumbo frames)\n\nSave"
+          },
+          {
+            "title": "Assign IP to bond0",
+            "type": "code",
+            "language": "text",
+            "content": "Network → Interfaces → bond0 → Edit\n\nType: Static\nIP Address: 10.20.30.100\nNetmask: 255.255.255.0 (/24)\nGateway: 10.20.30.1\nDNS: 10.20.30.1\n\nTest Changes (60 second timeout)\n→ Verify access at http://10.20.30.100\n→ Save Changes Permanently"
+          },
+          {
+            "title": "⚠️ Connect DAC Cables",
+            "type": "danger",
+            "content": "Now physically connect the DAC cables:<br>• 1m DAC #1: TerraMaster Port 1 → USW Port 2<br>• 1m DAC #2: TerraMaster Port 2 → USW Port 3"
+          },
+          {
+            "title": "Step 5: Verify TrueNAS LACP Bond",
+            "type": "code",
+            "language": "bash",
+            "content": "# TrueNAS Shell - Check bond status\nip link show bond0\n\n# Should show: bond0: <BROADCAST,MULTICAST,MASTER,UP>\n\n# Check LACP details\ncat /proc/net/bonding/bond0\n\n# Expected output:\nBonding Mode: IEEE 802.3ad Dynamic link aggregation\nAggregator ID: 1\n\nSlave Interface: enp1s0\nMII Status: up\nSpeed: 10000 Mbps\nAggregator ID: 1\n\nSlave Interface: enp2s0\nMII Status: up\nSpeed: 10000 Mbps\nAggregator ID: 1\n\n# Both slaves should have SAME Aggregator ID!"
+          },
+          {
+            "title": "Step 6: Proxmox - Install QLogic 10G NIC",
+            "type": "steps",
+            "items": [
+              {
+                "title": "Power Down",
+                "content": "Power OFF Dell R730xd completely → Open top cover (release latches)"
+              },
+              {
+                "title": "Install NIC",
+                "content": "Locate free PCIe slot (x8 Gen3 preferred) → Remove slot bracket screw → Insert QLogic dual-SFP+ NIC firmly → Secure bracket screw → Close cover"
+              },
+              {
+                "title": "Boot",
+                "content": "Power ON"
+              }
+            ]
+          },
+          {
+            "title": "Step 7: Proxmox - Configure 2×10G LACP Bond",
+            "type": "code",
+            "language": "bash",
+            "content": "# Proxmox Shell - Identify Interfaces\nip a\n\n# Look for NEW 10G interfaces (example):\n# enp65s0f0: QLogic Port A\n# enp65s0f1: QLogic Port B\n\n# Note the actual interface names for your system!"
+          },
+          {
+            "title": "Edit /etc/network/interfaces",
+            "type": "code",
+            "language": "bash",
+            "content": "# Backup existing config first!\ncp /etc/network/interfaces /etc/network/interfaces.backup\n\n# Edit configuration\nnano /etc/network/interfaces"
+          },
+          {
+            "title": "Proxmox Network Configuration",
+            "type": "code",
+            "language": "text",
+            "content": "# Add this configuration:\n\n# Loopback\nauto lo\niface lo inet loopback\n\n# QLogic dual-10G bond (REPLACE interface names if different!)\nauto bond0\niface bond0 inet manual\n    bond-slaves enp65s0f0 enp65s0f1\n    bond-mode 802.3ad\n    bond-miimon 100\n    bond-lacp-rate fast\n    bond-xmit-hash-policy layer3+4\n    bond-downdelay 200\n    bond-updelay 200\n    mtu 9000\n\n# Bridge on bond (Admin VLAN)\nauto vmbr0\niface vmbr0 inet static\n    address 10.20.30.101/24\n    gateway 10.20.30.1\n    bridge-ports bond0\n    bridge-stp off\n    bridge-fd 0\n    bridge-vlan-aware yes\n    mtu 9000\n\n# VLAN 30 (Home) - for VMs\nauto vmbr0.30\niface vmbr0.30 inet manual\n    vlan-raw-device vmbr0\n    mtu 9000\n\n# VLAN 20 (IoT) - for Home Assistant VM\nauto vmbr0.20\niface vmbr0.20 inet manual\n    vlan-raw-device vmbr0\n    mtu 9000\n\n# Save: Ctrl+O, Enter, Ctrl+X"
+          },
+          {
+            "title": "Apply Network Configuration",
+            "type": "code",
+            "language": "bash",
+            "content": "# Restart networking\nsystemctl restart networking\n\n# Verify bond status\ncat /proc/net/bonding/bond0\n\n# Should show:\n# Bonding Mode: IEEE 802.3ad Dynamic link aggregation\n# Aggregator ID: 1\n# Slave Interface: enp65s0f0 (Active, up, 10000 Mbps)\n# Slave Interface: enp65s0f1 (Active, up, 10000 Mbps)\n\n# Test connectivity\nping 10.20.30.1  # UDM\nping 10.20.30.100  # TrueNAS"
+          },
+          {
+            "title": "⚠️ Connect Proxmox DAC Cables",
+            "type": "danger",
+            "content": "Now physically connect the DAC cables:<br>• 1m DAC #3: Dell QLogic Port A → USW Port 4<br>• 1m DAC #4: Dell QLogic Port B → USW Port 5"
+          },
+          {
+            "title": "Step 8: Performance Test - iperf3",
+            "type": "code",
+            "language": "bash",
+            "content": "# TrueNAS Shell: Start Server\niperf3 -s\n\n# Leave running..."
+          },
+          {
+            "title": "iperf3 Client Test",
+            "type": "code",
+            "language": "bash",
+            "content": "# Proxmox Shell: Test Client\n\n# Single stream (tests single TCP flow)\niperf3 -c 10.20.30.100 -t 30\n\n# Expected: ~9.4 Gbps (LACP single-flow limitation)\n\n# Multi-stream (4 parallel) - tests aggregate bandwidth\niperf3 -c 10.20.30.100 -P 4 -t 30\n\n# Expected: 18-20 Gbps aggregate ✓✓✓"
+          },
+          {
+            "title": "✓ SUCCESS CRITERIA",
+            "type": "success",
+            "content": "• Single stream: 9.0-9.5 Gbps<br>• Multi-stream (4×): 18-20 Gbps<br>• Both LACP bonds showing \"Aggregator ID: 1\""
+          },
+          {
+            "title": "✅ 10G Network Checklist",
+            "type": "checklist",
+            "items": [
+              "USW-Aggregation adopted and online",
+              "USW static IP: 10.20.30.2",
+              "LAG1 created (USW Ports 2-3)",
+              "LAG2 created (USW Ports 4-5)",
+              "TrueNAS bond0 configured and active",
+              "Proxmox bond0 configured and active",
+              "All 5 DAC cables connected",
+              "iperf3 test: 18-20 Gbps achieved ✓✓✓"
             ]
           }
         ]
@@ -768,6 +903,49 @@
       "content": {
         "intro": "Configure VLANs and firewall rules for network segmentation and security.",
         "sections": [
+          {
+            "title": "📡 VLAN Summary",
+            "type": "table",
+            "data": {
+              "headers": [
+                "VLAN",
+                "Name",
+                "Subnet",
+                "DHCP Range",
+                "Purpose"
+              ],
+              "rows": [
+                [
+                  "1",
+                  "Admin",
+                  "10.20.30.0/24",
+                  ".50-.99",
+                  "Infrastructure management (UDM, USW, TrueNAS, Proxmox)"
+                ],
+                [
+                  "30",
+                  "Home",
+                  "10.0.30.0/24",
+                  ".100-.254",
+                  "Trusted devices (PCs, laptops, phones, tablets)"
+                ],
+                [
+                  "20",
+                  "IoT",
+                  "10.0.20.0/24",
+                  ".200-.254",
+                  "Smart home devices (Home Assistant VM, Zigbee, cameras)"
+                ],
+                [
+                  "40",
+                  "Guest",
+                  "10.0.40.0/24",
+                  ".6-.254",
+                  "Guest WiFi (completely isolated from internal network)"
+                ]
+              ]
+            }
+          },
           {
             "title": "VLAN Structure",
             "type": "table",
@@ -842,8 +1020,56 @@
         }
       ],
       "content": {
-        "intro": "Migrate all data from QNAP to TrueNAS using parallel rsync for maximum speed.",
+        "intro": "Migrate 24TB of data from QNAP to TrueNAS using parallel rsync sessions for optimal speed.",
         "sections": [
+          {
+            "title": "📊 Migration Overview",
+            "type": "table",
+            "data": {
+              "headers": [
+                "Dataset",
+                "QNAP Source",
+                "TrueNAS Destination",
+                "Size",
+                "Est. Time"
+              ],
+              "rows": [
+                [
+                  "Movies",
+                  "/share/Multimedia/Movies/",
+                  "/mnt/tank/media/movies/",
+                  "~12TB",
+                  "8 hours"
+                ],
+                [
+                  "TV Shows",
+                  "/share/Multimedia/TV/",
+                  "/mnt/tank/media/tv/",
+                  "~8TB",
+                  "5 hours"
+                ],
+                [
+                  "Photos",
+                  "/share/Photos/",
+                  "/mnt/tank/photos/",
+                  "~3TB",
+                  "2 hours"
+                ],
+                [
+                  "Documents",
+                  "/share/Documents/",
+                  "/mnt/tank/documents/",
+                  "~1TB",
+                  "45 min"
+                ]
+              ]
+            }
+          },
+          {
+            "title": "Strategy: Parallel rsync",
+            "type": "info",
+            "content": "Running 4 rsync jobs simultaneously maximizes QNAP's 2×1G LACP bandwidth (~150 MB/s per stream). This reduces total time from ~44 hours sequential to ~10 hours parallel!"
+          },
           {
             "title": "Pre-Migration Validation (CRITICAL)",
             "type": "checklist",
@@ -974,20 +1200,9 @@
         "intro": "Validate system performance and ensure all components meet specifications.",
         "sections": [
           {
-            "title": "Success Criteria",
-            "type": "checklist",
-            "items": [
-              "Network (iperf3): 18-20 Gbps aggregate TrueNAS ↔ Proxmox",
-              "ZFS Read: ~1,200 MB/s (cache miss), ~12,000 MB/s (ARC cache hit)",
-              "ZFS Write: ~900 MB/s (RAIDZ1 disk-limited)",
-              "LACP Bonds: Both showing Aggregator ID 1, 2×10G active",
-              "ZFS ARC: 30-40GB allocated, 90%+ hit rate"
-            ]
-          },
-          {
-            "title": "Extended Burn-In Testing (Recommended)",
+            "title": "✅ Success Criteria",
             "type": "info",
-            "content": "<strong>Optional but highly recommended for production use:</strong><br><br>✓ Run iperf3 for 1 hour continuous (stability test)<br>✓ Run fio disk stress test: 24 hours<br>✓ Monitor drive temps during heavy I/O (should stay < 50°C)<br>✓ Verify ZFS scrub completes without errors<br>✓ Check kernel errors: <code>dmesg | grep -i error</code><br><br>This catches infant mortality failures before you rely on the system."
+            "content": "<ul style='margin-left: 1.5rem; line-height: 2;'><li><strong>Network (iperf3):</strong> 18-20 Gbps aggregate TrueNAS ↔ Proxmox</li><li><strong>ZFS Read:</strong> ~1,200 MB/s (cache miss), ~12,000 MB/s (30-40GB ARC cache hit)</li><li><strong>ZFS Write:</strong> ~900 MB/s (RAIDZ1 disk-limited)</li><li><strong>LACP Bonds:</strong> Both showing Aggregator ID 1, 2×10G active</li></ul>"
           }
         ]
       }
@@ -1013,24 +1228,12 @@
         "intro": "Configure automated tasks and monitoring for long-term reliability.",
         "sections": [
           {
-            "title": "Automated Tasks",
+            "title": "Automated Tasks Configuration",
             "type": "info",
-            "content": "<strong>SMART Tests:</strong> Weekly long tests (Sunday 2 AM)<br><strong>ZFS Scrubs:</strong> Monthly integrity checks<br><strong>Snapshots:</strong> Photos hourly (30-day), Media daily (7-day), Documents 6-hourly (60-day)<br><strong>Email Alerts:</strong> Pool status, SMART failures, high temps"
+            "content": "<strong>SMART Tests:</strong> Weekly long tests (Sunday 2 AM) on all 4 drives<br><strong>ZFS Scrubs:</strong> Monthly integrity checks (first Sunday 3 AM)<br><strong>Snapshots:</strong><br>• Photos: Hourly, 30-day retention<br>• Media: Daily, 7-day retention<br>• Documents: Every 6 hours, 60-day retention<br><strong>Email Alerts:</strong> Pool status, SMART failures, temps >45°C, capacity >80%"
           },
           {
-            "title": "Critical: TrueNAS Config Backup",
-            "type": "checklist",
-            "items": [
-              "System → General → Save Config → Download .tar file",
-              "Store config on: External drive + cloud + Proxmox",
-              "Export pool info: zpool export tank (for disaster recovery docs)",
-              "Document: Pool creation commands, dataset structure",
-              "Schedule: Weekly config backups to /mnt/tank/backups/",
-              "Test: Restore config on test VM to verify backup works"
-            ]
-          },
-          {
-            "title": "Final Validation",
+            "title": "✅ Final System Validation",
             "type": "checklist",
             "items": [
               "Network: 18-20 Gbps verified ✓",
@@ -1041,6 +1244,11 @@
               "Automated snapshots configured",
               "Email alerts configured and tested"
             ]
+          },
+          {
+            "title": "🎉 Congratulations!",
+            "type": "success",
+            "content": "<strong>Your professional 10G homelab is complete!</strong><ul style='margin-left: 1.5rem; margin-top: 0.5rem;'><li>36TB ZFS storage with 64GB RAM (30-40GB auto-tuned cache)</li><li>20 Gbps aggregate NAS ↔ Server connectivity</li><li>Professional VLAN segmentation</li><li>Enterprise-grade monitoring</li><li>Total investment: $2,459 CAD</li></ul>"
           }
         ]
       }
