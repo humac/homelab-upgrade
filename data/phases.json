@@ -10,6 +10,11 @@
         "intro": "A professional-grade 10G homelab that rivals $8,000+ commercial solutions for just <strong>$2,459</strong>.",
         "sections": [
           {
+            "title": "🎉 What You're Building",
+            "type": "success",
+            "content": "A professional-grade 10G homelab that rivals $8,000+ commercial solutions for just <strong>$2,459</strong>."
+          },
+          {
             "title": "📊 Key Improvements",
             "type": "table",
             "data": {
@@ -104,7 +109,7 @@
                   "$3,059"
                 ],
                 [
-                  "__credit__",
+                  "",
                   "Sell 6× Seagate 8TB SMR",
                   "-$600"
                 ],
@@ -160,7 +165,35 @@
           {
             "title": "📥 Download TrueNAS SCALE",
             "type": "info",
-            "content": "<strong>Download Link:</strong><br><a href='https://www.truenas.com/download-truenas-scale/' target='_blank'>https://www.truenas.com/download-truenas-scale/</a><br><strong>File:</strong> TrueNAS-SCALE-24.10.1.iso (~1.5GB)"
+            "content": "<strong>Download Link:</strong> <a href='https://www.truenas.com/download-truenas-scale/' target='_blank'>https://www.truenas.com/download-truenas-scale/</a><br><strong>File:</strong> TrueNAS-SCALE-24.10.1.iso (~1.5GB)"
+          },
+          {
+            "title": "Create Bootable USB (Windows - Rufus)",
+            "type": "steps",
+            "items": [
+              {
+                "title": "Download Rufus",
+                "content": "Download Rufus from <a href='https://rufus.ie' target='_blank'>rufus.ie</a>"
+              },
+              {
+                "title": "Insert USB Drive",
+                "content": "Insert 8GB+ USB drive (will be <strong>ERASED</strong>)"
+              },
+              {
+                "title": "Configure Rufus",
+                "content": "<pre>Device: [Your USB drive]\nBoot selection: [Select] → TrueNAS-SCALE-24.10.1.iso\nPartition scheme: GPT\nTarget system: UEFI\nVolume label: TrueNAS_Install</pre>"
+              },
+              {
+                "title": "Create Installer",
+                "content": "Click <strong>START</strong> → Wait ~5 minutes for completion → Label USB: \"TrueNAS Installer\""
+              }
+            ]
+          },
+          {
+            "title": "Create Bootable USB (Mac/Linux - dd)",
+            "type": "code",
+            "language": "bash",
+            "content": "# Find USB device (Mac)\ndiskutil list\n\n# Find USB device (Linux)\nlsblk\n\n# Unmount USB (replace /dev/sdX with your device)\nsudo umount /dev/sdX*\n\n# Write ISO to USB (⚠️ CAUTION: Double-check device name!)\nsudo dd if=TrueNAS-SCALE-24.10.1.iso of=/dev/sdX bs=4M status=progress\n\n# Sync and eject\nsudo sync\nsudo eject /dev/sdX"
           },
           {
             "title": "🔧 Tools Preparation",
@@ -172,6 +205,11 @@
               "Network cables (CAT6 minimum)",
               "Password manager ready for credentials"
             ]
+          },
+          {
+            "title": "⚠️ CRITICAL: Backup Verification",
+            "type": "danger",
+            "content": "Before proceeding, ensure your QNAP data is backed up elsewhere. This migration involves:<ul style='margin-left: 1.5rem; margin-top: 0.5rem;'><li>Creating new ZFS pool (will erase 12TB drives)</li><li>Potential network changes</li><li>Multiple system reboots</li></ul>"
           }
         ]
       }
@@ -202,21 +240,91 @@
         "intro": "Install RAM, NVMe SSD, and hard drives into the TerraMaster unit.",
         "sections": [
           {
-            "title": "Installation Steps",
+            "title": "⚠️ POWER OFF",
+            "type": "danger",
+            "content": "Ensure TerraMaster is completely powered off and unplugged before opening!"
+          },
+          {
+            "title": "Step 1: Install 64GB DDR5 RAM",
             "type": "steps",
             "items": [
               {
-                "title": "Install 64GB DDR5 RAM",
-                "content": "Remove bottom panel, locate RAM slot, remove existing 8GB module, install new 64GB DDR5-5600 SODIMM."
+                "title": "Open Bottom Panel",
+                "content": "Remove 4× Phillips screws from bottom panel → Lift bottom panel straight up"
               },
               {
-                "title": "Install 1TB NVMe SSD",
-                "content": "Insert WD_BLACK SN7100 into M.2 Slot 1 at 30° angle, press flat, secure with screw."
+                "title": "Remove Existing RAM",
+                "content": "Locate RAM slot near CPU → Gently push clips outward on both sides → Module pops up at ~30° angle → Pull out carefully"
               },
               {
-                "title": "Install Hard Drives",
-                "content": "Insert 4× WD Red Plus 12TB into drive bays 1-4 using tool-less trays."
+                "title": "Install 64GB SODIMM",
+                "content": "Align notch with slot key → Insert at 30° angle → Press down flat until clips click"
               }
+            ]
+          },
+          {
+            "title": "✓ RAM Verification",
+            "type": "success",
+            "content": "RAM should be firmly seated with both clips engaged. Module should not move when gently pressed."
+          },
+          {
+            "title": "Step 2: Install 1TB NVMe SSD",
+            "type": "info",
+            "content": "<pre>Bottom panel removed:\n┌─────────────────────────────────────┐\n│         [CPU Heatsink]              │\n│              ↓                      │\n│         [M.2 Slot 1] ← Install here │\n│                                     │\n│         [M.2 Slot 2] ← Empty        │\n│                                     │\n│      [SATA Controller]              │\n└─────────────────────────────────────┘</pre>"
+          },
+          {
+            "title": "NVMe Installation Steps",
+            "type": "steps",
+            "items": [
+              {
+                "title": "Locate M.2 Slot 1",
+                "content": "Near CPU, labeled \"M.2_1\" → Remove tiny M.2 mounting screw (keep safe!)"
+              },
+              {
+                "title": "Insert NVMe",
+                "content": "Insert WD_BLACK SN7100 1TB at 30° angle with gold contacts entering first → Push into slot until fully seated → Press down flat (will feel spring tension)"
+              },
+              {
+                "title": "Secure with Screw",
+                "content": "Secure with M.2 screw (hand-tight + ¼ turn)"
+              }
+            ]
+          },
+          {
+            "title": "⚠️ Common Mistake",
+            "type": "warning",
+            "content": "Don't over-tighten M.2 screw! Should be snug but not forcing the SSD."
+          },
+          {
+            "title": "Step 3: Install Hard Drives",
+            "type": "steps",
+            "items": [
+              {
+                "title": "Prepare Drive Trays",
+                "content": "Verify 6× drive trays included with TerraMaster → Insert each 12TB drive into tray (tool-less design - no screws needed) → Slide drive in until it clicks"
+              },
+              {
+                "title": "Install in Bays",
+                "content": "Slide trays into Bays 1-4 (front to back) → Push until lock mechanism clicks → Leave Bays 5-6 empty (future expansion)"
+              }
+            ]
+          },
+          {
+            "title": "Drive Bay Assignment",
+            "type": "code",
+            "language": "text",
+            "content": "Bay 1: WD Red Plus 12TB #1 (sda)\nBay 2: WD Red Plus 12TB #2 (sdb)\nBay 3: WD Red Plus 12TB #3 (sdc)\nBay 4: WD Red Plus 12TB #4 (sdd)\nBay 5: Empty (future)\nBay 6: Empty (future)"
+          },
+          {
+            "title": "✅ Hardware Installation Checklist",
+            "type": "checklist",
+            "items": [
+              "64GB DDR5 RAM installed and clicked into place",
+              "WD_BLACK SN7100 1TB NVMe installed in M.2 Slot 1",
+              "Bottom panel secured with all 4 screws",
+              "4× WD Red Plus 12TB installed in Bays 1-4",
+              "TerraMaster powers on successfully",
+              "All drives detected in BIOS/TOS"
             ]
           }
         ]
@@ -248,30 +356,121 @@
         "intro": "Install TrueNAS SCALE operating system and configure basic settings.",
         "sections": [
           {
-            "title": "⚠️ CRITICAL: User Creation Timing",
-            "type": "danger",
-            "content": "You MUST create the admin user (UID 1000) BEFORE creating any ZFS pools in Phase 3. This ensures correct file permissions. Verify user creation with: <code>id huynguyen</code>"
-          },
-          {
-            "title": "Installation Steps",
+            "title": "Step 1: Boot from USB Installer",
             "type": "steps",
             "items": [
               {
-                "title": "Boot from USB Installer",
-                "content": "Insert USB, press DEL or F11 during boot, select USB device."
+                "title": "Insert USB and Boot",
+                "content": "Insert TrueNAS USB installer into front USB port → Connect keyboard + monitor → Power ON TerraMaster"
               },
               {
-                "title": "Install TrueNAS to NVMe",
-                "content": "Choose Install/Upgrade, select /dev/nvme0n1, set root password, wait ~5 minutes."
-              },
-              {
-                "title": "Configure Static IP",
-                "content": "Set static IP 10.20.30.100 in Network → Global Configuration."
-              },
-              {
-                "title": "Create Admin User",
-                "content": "Create user 'huynguyen' with UID 1000 for proper file permissions."
+                "title": "Access Boot Menu",
+                "content": "Press <code>DEL</code> or <code>F11</code> during boot for Boot Menu → Select: <strong>USB device</strong> (UEFI mode preferred)"
               }
+            ]
+          },
+          {
+            "title": "TrueNAS Installer",
+            "type": "info",
+            "content": "TrueNAS installer will load with a blue/white text interface."
+          },
+          {
+            "title": "Step 2: Install TrueNAS to NVMe",
+            "type": "code",
+            "language": "text",
+            "content": "┌─────────────────────────────────────┐\n│ TrueNAS SCALE Installer             │\n├─────────────────────────────────────┤\n│ 1. Install/Upgrade                  │\n│ 2. Shell                            │\n│ 3. Reboot                           │\n└─────────────────────────────────────┘\n\nSelect: 1. Install/Upgrade"
+          },
+          {
+            "title": "Installation Process",
+            "type": "steps",
+            "items": [
+              {
+                "title": "Choose Destination",
+                "content": "Choose <strong>1. Install/Upgrade</strong> → Destination: <code>/dev/nvme0n1</code> (1TB WD SN7100) ✓"
+              },
+              {
+                "title": "Confirm Erase",
+                "content": "WARNING dialog: \"This will ERASE disk\" → Select <strong>YES</strong>"
+              },
+              {
+                "title": "Set Root Password",
+                "content": "Choose a strong password (min 8 characters) → Save in password manager!"
+              },
+              {
+                "title": "Complete Installation",
+                "content": "Installation proceeds (~5 minutes) → When complete: Remove USB drive → Select <strong>3. Reboot</strong>"
+              }
+            ]
+          },
+          {
+            "title": "✓ Installation Success",
+            "type": "success",
+            "content": "TrueNAS will boot from M.2 NVMe and show IP address on console."
+          },
+          {
+            "title": "Step 3: Initial Web Interface Setup",
+            "type": "steps",
+            "items": [
+              {
+                "title": "Access Web Interface",
+                "content": "Note IP address shown on console (e.g., 10.20.30.50 via DHCP) → From your PC, open browser: <code>http://truenas-ip</code> → Login: <code>root</code> / your-password"
+              }
+            ]
+          },
+          {
+            "title": "Step 4: Configure Static IP",
+            "type": "danger",
+            "content": "<strong>CRITICAL:</strong> Write down your current IP before changing! If you lose access, connect monitor to console."
+          },
+          {
+            "title": "Global Configuration",
+            "type": "code",
+            "language": "text",
+            "content": "Network → Global Configuration\n\nHostname: truenas\nDomain: local\n\nDefault Gateway: 10.20.30.1\nDNS Servers: 10.20.30.1\n\nSave"
+          },
+          {
+            "title": "Interface Configuration",
+            "type": "code",
+            "language": "text",
+            "content": "Network → Interfaces → enp1s0 (Edit)\n\nType: Static\nIP Address: 10.20.30.100\nNetmask: 255.255.255.0 (/24)\n\n✓ DHCP: Disabled\n\nTest Changes (60 seconds)\n→ Verify you can still access http://10.20.30.100\n→ Save Changes Permanently"
+          },
+          {
+            "title": "⚠️ Test Period Warning",
+            "type": "warning",
+            "content": "You have 60 seconds to verify access at new IP. If you don't click \"Save Changes Permanently\", settings will revert!"
+          },
+          {
+            "title": "Step 5: Create Admin User (CRITICAL - UID 1000)",
+            "type": "danger",
+            "content": "<strong>⚠️ DO THIS FIRST:</strong> Create your personal admin user <strong>before</strong> creating any datasets! User ID 1000 is important for permissions."
+          },
+          {
+            "title": "User Creation",
+            "type": "code",
+            "language": "text",
+            "content": "Accounts → Users → Add\n\nFull Name: Huy Nguyen\nUsername: huynguyen\nUser ID: 1000  ← IMPORTANT! Must be 1000\nCreate New Primary Group: ✓\nGroup ID: 1000 ← Auto-fills\n\nPassword: [your secure password]\nConfirm Password: [same password]\n\nHome Directory: /nonexistent\nShell: nologin\n\n✓ Disable Password: NO\n\nSave"
+          },
+          {
+            "title": "✓ User Created",
+            "type": "success",
+            "content": "This creates user <strong>huynguyen</strong> (1000:1000) which will own all your datasets and app data."
+          },
+          {
+            "title": "Step 6: System Updates",
+            "type": "code",
+            "language": "text",
+            "content": "System → Update\n\nCheck for Updates\n\nIf updates available:\n→ Download\n→ Apply (system will reboot)\n→ Wait ~5 minutes\n→ Verify at http://10.20.30.100"
+          },
+          {
+            "title": "✅ TrueNAS Setup Checklist",
+            "type": "checklist",
+            "items": [
+              "TrueNAS installed to /dev/nvme0n1 successfully",
+              "Static IP set to 10.20.30.100",
+              "Gateway configured: 10.20.30.1",
+              "User huynguyen created with UID/GID 1000",
+              "System updated to latest version",
+              "Web GUI accessible at http://10.20.30.100"
             ]
           }
         ]
@@ -351,9 +550,38 @@
             "content": "Before creating apps-ssd pool, verify boot pool location: <code>zpool status boot-pool</code> and <code>lsblk /dev/nvme0n1</code>. Ensure you ONLY use free space (typically nvme0n1p3). DO NOT accidentally erase boot-pool!"
           },
           {
-            "title": "Storage Strategy",
+            "title": "📊 Storage Strategy",
             "type": "info",
-            "content": "<strong>Two-Pool Design:</strong><br>• <strong>tank</strong> (HDD RAIDZ1): Bulk storage for media (36TB usable)<br>• <strong>apps-ssd</strong> (NVMe): Fast storage for app configs (~900GB usable)"
+            "content": "<strong>Two-Pool Design for Optimal Performance:</strong><br>• <strong>tank</strong> (HDD RAIDZ1): Bulk storage for media, photos, documents (36TB usable)<br>• <strong>apps-ssd</strong> (NVMe): Fast storage for app configs, databases, transcode cache (~900GB usable)"
+          },
+          {
+            "title": "Pool Comparison",
+            "type": "table",
+            "data": {
+              "headers": [
+                "Pool",
+                "Devices",
+                "Capacity",
+                "Speed",
+                "Purpose"
+              ],
+              "rows": [
+                [
+                  "tank",
+                  "4× 12TB HDD RAIDZ1",
+                  "~36TB usable",
+                  "~1,200 MB/s read",
+                  "Media, photos, documents, backups"
+                ],
+                [
+                  "apps-ssd",
+                  "1× 1TB NVMe",
+                  "~900GB usable",
+                  "~7,000 MB/s read",
+                  "App configs, databases, transcode"
+                ]
+              ]
+            }
           },
           {
             "title": "🚨 POINT OF NO RETURN",
@@ -361,21 +589,102 @@
             "content": "<strong>WARNING: Creating ZFS pools ERASES ALL DATA on those drives!</strong><br><br>Before running 'zpool create tank raidz1 /dev/sd[abcd]':<br>✓ Triple-check device names: <code>lsblk</code><br>✓ Verify no mounted filesystems: <code>mount | grep sd</code><br>✓ Confirm backup exists elsewhere<br>✓ Take photos of disk serial numbers<br><br>This operation is IRREVERSIBLE!"
           },
           {
-            "title": "Configuration Steps",
-            "type": "steps",
+            "title": "Step 1: Create Pool 'tank' (HDD RAIDZ1)",
+            "type": "code",
+            "language": "text",
+            "content": "TrueNAS Web GUI: Storage → Create Pool\n\nName: tank\n\nLayout:\n├── Data VDev: RAIDZ1\n│   ├── /dev/sda (12TB WD Red Plus #1)\n│   ├── /dev/sdb (12TB WD Red Plus #2)\n│   ├── /dev/sdc (12TB WD Red Plus #3)\n│   └── /dev/sdd (12TB WD Red Plus #4)\n\nSettings:\n├── Dataset Preset: Generic\n├── Compression: lz4 (default ✓)\n├── Encryption: DISABLED (recommended for simplicity)\n└── ashift: 12 (4K sectors, auto-detected)\n\nCreate\n\nResult:\n• Raw: 48TB (4×12TB)\n• Parity: 12TB (1 drive RAIDZ1)\n• Usable: ~36TB (after ZFS overhead)\n• Compression: +10-15% effective (~42TB)"
+          },
+          {
+            "title": "Step 2: Create Pool 'apps-ssd' (NVMe)",
+            "type": "warning",
+            "content": "<strong>CRITICAL:</strong> The NVMe drive already has a boot pool partition. We'll create the apps pool on the REMAINING free space."
+          },
+          {
+            "title": "Check NVMe Available Space",
+            "type": "code",
+            "language": "bash",
+            "content": "# TrueNAS Shell - List NVMe partitions\nlsblk /dev/nvme0n1\n\n# You should see something like:\n# nvme0n1           931.5G\n# ├─nvme0n1p1        512M   (EFI)\n# ├─nvme0n1p2         16G   (boot pool)\n# └─nvme0n1p3        915G   (FREE SPACE - we'll use this)\n\n# Note: Partition numbers may vary, look for the large free partition"
+          },
+          {
+            "title": "Create apps-ssd Pool",
+            "type": "code",
+            "language": "text",
+            "content": "Storage → Create Pool → apps-ssd\n\nName: apps-ssd\n\nLayout:\n├── Data VDev: Single Disk (no redundancy)\n│   └── /dev/nvme0n1p3 (or available NVMe partition)\n│       Note: Select the LARGE partition (~900GB+)\n│             NOT the boot pool partition!\n\nSettings:\n├── Dataset Preset: Apps\n├── Compression: lz4\n└── Purpose: App configs, databases, transcode cache\n\nWarning Acknowledgment:\n☑ I understand this pool has no redundancy\n   (Acceptable - apps can be reinstalled, data is on tank)\n\nCreate\n\nResult:\n• Usable: ~900GB (after boot pool space)\n• Speed: 7,000+ MB/s sequential read\n• Use: Plex config/transcode, Immich DB, etc."
+          },
+          {
+            "title": "✓ Why Two Pools?",
+            "type": "success",
+            "content": "<strong>Performance:</strong> App databases get NVMe speeds (7,000 MB/s vs 1,200 MB/s)<br><strong>I/O separation:</strong> Plex transcoding doesn't impact media reads<br><strong>Acceptable risk:</strong> App configs backed up to tank, can reinstall if NVMe fails"
+          },
+          {
+            "title": "Step 3: ZFS ARC Auto-Tuning (SCALE Feature)",
+            "type": "success",
+            "content": "<strong>✓ No manual tuning needed!</strong><br>TrueNAS SCALE automatically manages ZFS ARC cache. With 64GB RAM, the system will dynamically allocate 30-40GB to ARC and automatically balance with app memory needs."
+          },
+          {
+            "title": "How Auto-Tuning Works",
+            "type": "info",
+            "content": "<strong>SCALE's auto-tuning:</strong><br>• Monitors system memory pressure in real-time<br>• Adjusts ARC size based on app demands (Kubernetes, VMs)<br>• Typically allocates 50-60% of total RAM to ARC<br>• Shrinks ARC when apps need more memory<br>• Grows ARC when memory is available<br><br><strong>Expected with 64GB:</strong> ~32-38GB ARC, dynamically adjusted<br><strong>Result:</strong> 90%+ cache hit rate on typical homelab workloads"
+          },
+          {
+            "title": "⚠️ Don't Manually Tune ARC!",
+            "type": "warning",
+            "content": "Manual ARC limits (vfs.zfs.arc.max/min) can prevent optimal memory management. Only set manual limits if you have specific advanced requirements."
+          },
+          {
+            "title": "Monitor ARC Usage",
+            "type": "code",
+            "language": "bash",
+            "content": "# Check ARC statistics (after system warms up)\narc_summary\n\n# Look for:\n# - ARC size: Should be 30-40GB after warm-up\n# - Hit rate: Should be 85-95%+ for typical use\n# - Most Frequently Used (MFU): Your hot data\n\n# Quick check\ngrep -E \"arc_.*size|hit\" /proc/spl/kstat/zfs/arcstats"
+          },
+          {
+            "title": "Step 4: Create Datasets on 'tank' (HDD Pool)",
+            "type": "code",
+            "language": "text",
+            "content": "Dataset Structure for Media Storage:\n\ntank/\n├── media/\n│   ├── movies/          (Plex movies - 1M recordsize)\n│   └── tv/              (Plex TV shows - 1M recordsize)\n├── photos/              (Immich library - 128K recordsize)\n├── documents/           (Nextcloud data - 128K recordsize)\n├── downloads/\n│   ├── incomplete/      (SABnzbd temp - 1M recordsize)\n│   └── completed/       (SABnzbd finished - 1M recordsize)\n├── backups/             (System/VM backups - 1M + gzip-6)\n└── isos/                (Proxmox ISOs - 1M recordsize)\n\nNote: NO apps dataset here - apps are on apps-ssd pool!"
+          },
+          {
+            "title": "Create Each Dataset (Detailed)",
+            "type": "code",
+            "language": "text",
+            "content": "Storage → tank → Add Dataset\n\nDataset 1: media\n├── Name: media\n├── Record Size: 1M (large video files)\n├── Compression: lz4\n├── Owner: huynguyen:huynguyen (1000:1000)\n└── Permissions: 755 (rwxr-xr-x)\n\nDataset 2: photos\n├── Name: photos\n├── Record Size: 128K (photo files)\n├── Compression: lz4\n├── Owner: huynguyen:huynguyen\n└── Permissions: 755\n\nDataset 3: documents\n├── Name: documents\n├── Record Size: 128K\n├── Compression: lz4\n├── Owner: huynguyen:huynguyen\n└── Permissions: 755\n\nDataset 4: downloads\n├── Name: downloads\n├── Record Size: 1M\n└── Create child datasets:\n    • downloads/incomplete\n    • downloads/completed\n\nDataset 5: backups\n├── Name: backups\n├── Record Size: 1M\n├── Compression: gzip-6 (higher compression for backups)\n└── Permissions: 700 (restricted)\n\nDataset 6: isos\n├── Name: isos\n├── Record Size: 1M (ISO files)\n└── Owner: huynguyen:huynguyen"
+          },
+          {
+            "title": "Step 5: Create Datasets on 'apps-ssd' (NVMe Pool)",
+            "type": "code",
+            "language": "text",
+            "content": "Dataset Structure for Applications:\n\napps-ssd/\n├── plex/\n│   ├── config/          (Plex metadata, libraries)\n│   └── transcode/       (Temp transcoding - FAST!)\n├── immich/\n│   ├── database/        (PostgreSQL DB)\n│   └── cache/           (ML models, thumbnails)\n├── nextcloud/\n│   ├── app/             (Nextcloud app files)\n│   └── database/        (PostgreSQL DB)\n├── arr-stack/\n│   ├── sonarr/          (Sonarr config)\n│   ├── radarr/          (Radarr config)\n│   ├── prowlarr/        (Prowlarr config)\n│   ├── sabnzbd/         (SABnzbd config)\n│   └── overseerr/       (Overseerr config)\n└── scrypted/            (Scrypted NVR config)\n\nAll on FAST NVMe for optimal app performance!"
+          },
+          {
+            "title": "Create App Datasets (Detailed)",
+            "type": "code",
+            "language": "text",
+            "content": "Storage → apps-ssd → Add Dataset\n\nDataset: plex\n├── Name: plex\n├── Record Size: 128K (mixed small files)\n├── Compression: lz4\n├── Owner: huynguyen:huynguyen\n└── Child datasets:\n    • plex/config\n    • plex/transcode\n\nDataset: immich\n├── Name: immich\n├── Record Size: 128K\n├── Child datasets:\n    • immich/database\n    • immich/cache\n\nDataset: nextcloud\n├── Name: nextcloud\n├── Record Size: 128K\n├── Child datasets:\n    • nextcloud/app\n    • nextcloud/database\n\nDataset: arr-stack\n├── Name: arr-stack\n├── Record Size: 128K\n├── Child datasets:\n    • arr-stack/sonarr\n    • arr-stack/radarr\n    • arr-stack/prowlarr\n    • arr-stack/sabnzbd\n    • arr-stack/overseerr\n\nDataset: scrypted\n├── Name: scrypted\n├── Record Size: 128K\n\nAll datasets owned by huynguyen:huynguyen (1000:1000)"
+          },
+          {
+            "title": "✓ Performance Impact",
+            "type": "success",
+            "content": "• Plex transcoding: 6,000+ MB/s (vs 900 MB/s on HDD)<br>• Immich ML processing: 7× faster database queries<br>• App responsiveness: Near-instant config reads"
+          },
+          {
+            "title": "✅ ZFS Storage Checklist",
+            "type": "checklist",
             "items": [
-              {
-                "title": "Create Pool 'tank'",
-                "content": "4× 12TB RAIDZ1 configuration with lz4 compression."
-              },
-              {
-                "title": "Create Pool 'apps-ssd'",
-                "content": "Single NVMe drive for application data and databases."
-              },
-              {
-                "title": "Create Datasets",
-                "content": "Organize data into media, photos, documents, downloads, backups, and app datasets."
-              }
+              "Pool 'tank' created (4× 12TB RAIDZ1, ~36TB usable)",
+              "Pool 'apps-ssd' created (NVMe, ~900GB usable)",
+              "tank/media dataset created (1M recordsize)",
+              "tank/photos dataset created (128K recordsize)",
+              "tank/documents dataset created",
+              "tank/downloads dataset created (with incomplete/completed)",
+              "tank/backups dataset created (gzip-6 compression)",
+              "tank/isos dataset created",
+              "apps-ssd/plex datasets created (config + transcode)",
+              "apps-ssd/immich datasets created (database + cache)",
+              "apps-ssd/nextcloud datasets created",
+              "apps-ssd/arr-stack datasets created (all 5 apps)",
+              "apps-ssd/scrypted dataset created",
+              "All datasets owned by huynguyen:huynguyen (1000:1000)",
+              "ZFS ARC auto-tuning verified (no manual tunables set)"
             ]
           }
         ]
